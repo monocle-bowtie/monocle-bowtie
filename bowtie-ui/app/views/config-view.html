@@ -1,0 +1,35 @@
+<div id="wrapper" ng-init='init()'>
+    <div ng-include="'app/views/navbar-view.html'"></div>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Config</h1>
+                    </div>
+                </div>
+                <div class="row" id="cargar-proveedor">
+                    <div class="col-lg-12">
+                            <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="form-group venta-panel-heading">
+                                    <strong>Config</strong>
+                                </div>
+                            </div>
+                          
+                                <form class="form-inline" role="form">
+                                    <div class="span4 panel-footer">
+                                        <input class="btn btn-info pull-right" 
+                                           type="submit"
+                                           value="Crear Product List" 
+                                           ng-click="save()">
+                                    </div>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+ 
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+</div>

@@ -1,0 +1,188 @@
+<div id="wrapper" ng-init='init()'>
+<div ng-include="'app/views/navbar-view.html'"></div>
+<div id="page-wrapper">
+<div class="container-fluid">
+<div class="row">
+  <div class="col-lg-6">
+    <h1 class="page-header">Compras</h1>
+  </div>
+  <div class="ventas-total col-lg-6">
+      <h1 class="pull-right">Total: {{totalCompra | currency : symbol : fractionSize}}</h1>
+  </div>
+  <div class="span4 panel-footer">
+    <input data-wow-delay="1.5s"
+           id="confirmar"
+           class="btn btn-info pull-right bounceInRight animated"
+           type="submit" 
+           value="Confirmar" 
+           ng-click="saveCompra()">
+  </div>
+</div>
+
+<div class="col-lg-12">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+        <div class="form-group venta-panel-heading">
+            <strong>Compra</strong>
+        </div>
+    </div>
+    <form class="form-inline" role="form">
+        <div class="row">
+          <div class="col-xs-4">
+            <div class="input-group col-lg-12">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-barcode"></span></span>
+                <input type="text" ng-model="compra.NroFactura" class="form-control" placeholder="N° de factura">
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="input-group col-lg-12">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+              <div class='input-group date' id='datetimepicker1'>
+                <input ng-model="compra.Fecha" type='text' placeholder="Fecha" class="form-control" id="fecha"/>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div class="input-group col-lg-12">
+              <span class="input-group-addon addon-proveedores">
+                <span class="glyphicon glyphicon-usd"></span>
+              </span>
+              <select class="form-control" ng-model="compra.idMedioPago" 
+                      ng-options="medioPago.idMedioPago as medioPago.descripcion for medioPago in medioPagoList">
+                <option value="">Elija un medio de pago</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="input-group col-lg-12">
+                    <span class="input-group-addon addon-proveedores">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </span>
+                    <select class="form-control"
+                            ng-model="compra.idProveedor"
+                            ng-options="proveedor.idProveedor as proveedor.nombre for proveedor in proveedoresList">
+                             <option value="">Elija un proveedor</option>
+                    </select>
+                    
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="input-group col-lg-12">
+                    <span class="input-group-addon addon-proveedores">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </span>
+                    <select class="form-control"
+                            ng-model="compra.idGrupo"
+                            ng-options="grupo.idGrupo as grupo.descripcion for grupo in gruposList">
+                             <option value="">Elija una Categoría</option>
+                    </select>
+                    
+                </div>
+            </div>
+        </div>
+      </form>
+  </div>
+</div>
+
+<div class="col-lg-4">
+  <div class="panel panel-info">
+    
+    <div class="panel-heading">
+        <div class="form-group venta-panel-heading">
+            <strong>Detalle de Producto</strong>
+        </div>
+    </div>
+    
+    <form class="form-inline" role="form">
+      <div class="row">
+        <div class="form-group col-xs-10">
+          <input ng-model="producto.NombreProducto"
+                 data="productos.autocomplete" 
+                 autocomplete 
+                 id="NombreProducto" 
+                 class="form-control"
+                 placeholder="Ingrese el nombre del producto...">
+        </div>
+        <input class="btn btn-info" type="submit" value=">" ng-click="addProducto(producto)">
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-8">
+          <input ng-model="producto.cantidad" id="cantidad" class="form-control" placeholder="Cantidad">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-8">
+          <input ng-model="producto.Codigo" class="form-control" placeholder="Código de barras">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-xs-8">
+          <input ng-model="producto.costo" id="costo" class="form-control" placeholder="$ Costo">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+          
+<div class="col-lg-8">
+  <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="form-group venta-panel-heading">
+          <strong>Detalle compra</strong>
+        </div>
+      </div>
+
+    
+         <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                      <col style="width:10%">
+                      <col style="width:40%">
+                      <col style="width:20%">
+                      <thead>
+                          <tr>
+                              <th>Cantidad</th>
+                              <th>Nombre del Producto</th>
+                              <th>Costo</th>
+                          </tr>
+                       </thead>
+                      <tbody>
+                          <tr ng-repeat="producto in compra.CompraDetalle">
+                              <td>
+                                 {{producto.Cantidad}}
+                              <td>
+                                 {{producto.NombreProducto}}
+                              </td>
+                              <td>
+                                  {{producto.PrecioTotal | currency : symbol : fractionSize}}
+                              </td>
+                              <td>
+                                 <input class="btn btn-danger pull-right" 
+                                        type="submit" 
+                                        value="X" 
+                                        ng-click="remove(producto)">
+                              </td>
+                          </tr>
+                      </tbody>
+                </table>
+      </div>
+  </div>
+</div>
+
+
+             
+                
+                
+
+              
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+</div>

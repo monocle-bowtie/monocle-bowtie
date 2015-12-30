@@ -1,0 +1,234 @@
+<div id="wrapper" ng-init='init()'>
+    <div ng-include="'app/views/navbar-view.html'"></div>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1 class="page-header">Ventas</h1>
+                    </div>
+                    <div class="ventas-total-custom col-lg-3 pull-right">
+                        <p>
+                            Precio Total Contado: <strong>{{totalVentaContado | currency : symbol : fractionSize}}</strong>
+                        </p>
+                        
+                        <p>
+                            Precio Total Lista: <strong>{{totalVentaLista | currency : symbol : fractionSize}}</strong>
+                        </p>
+                        
+                        <p>
+                            Precio Total Gremio: <strong>{{totalVentaGremio | currency : symbol : fractionSize}}</strong>
+                        </p>
+                    </div>
+                    <div class="span4 btn-ventas">
+                            <input data-wow-delay="1.5s"
+                                   id="confirmar"
+                                   class="btn btn-info pull-right bounceInRight animated" 
+                                   type="submit" 
+                                   value="Confirmar" 
+                                   ng-click="saveVenta(productosVenta)">
+                        </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="form-group venta-panel-heading">
+                                <strong>Búsqueda de productos</strong>
+                            </div>
+                        </div>
+
+                        <form class="form-inline" role="form">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <div class="input-group col-lg-12">
+                                                <span class="input-group-addon addon-proveedores">
+                                                    <span class="glyphicon glyphicon-user"></span>
+                                                </span>
+                                                <select class="form-control"
+                                                        ng-model="venta.idCliente"
+                                                        ng-options="cliente.idCliente as cliente.nombre for cliente in clientesList"ng-change="updateMedioPagoSelect(); updateTotal()">
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="input-group col-lg-12">
+                                                <span class="input-group-addon addon-proveedores">
+                                                    <span class="glyphicon glyphicon-usd"></span>
+                                                </span>
+                                                <select class="form-control"
+                                                        id="medioPago"
+                                                        ng-model="venta.idMedioPago"
+                                                        ng-options="medioPago.idMedioPago as medioPago.descripcion for medioPago in medioPagoList"
+                                                        ng-change="updateTarjetaSelect()">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3" id="tarjetasSelect">
+                                            <div class="input-group col-lg-12">
+                                                <span class="input-group-addon addon-proveedores">
+                                                    <span class="glyphicon glyphicon-credit-card"></span>
+                                                </span>
+                                                <select class="form-control"
+                                                        id="tarjeta"
+                                                        ng-model="venta.idTarjeta"
+                                                        ng-options="tarjeta.idTarjeta as tarjeta.descripcion for tarjeta in tarjetasList">
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <div class="input-group col-lg-12">
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                                                <input type="text" ng-model="nombreSearch" class="form-control" placeholder="Buscar por nombre..."/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-4">
+                                            <div class="input-group col-lg-12">
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-barcode"></span></span>
+                                                <input type="text" ng-model="codigoSearch" class="form-control" placeholder="Código" />
+                                            </div>
+                                            </div>
+                                        </div>
+                                </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" id="detalle-productos">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="form-group venta-panel-heading">
+                                <strong>Productos</strong>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <col style="width:20%">
+                                <col style="width:10%">
+                                <col style="width:35%">
+                                <col style="width:10%">
+                                <col style="width:20%">
+                                <col style="width:5%">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Stock</th>
+                                        <th>Descripcion</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Agregar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="producto in productosList
+                                                  | filter:nombreSearch
+                                                  | filter:codigoSearch 
+                                                  | limitTo:cantidadFilas">
+                                        <td>{{producto.codigoBarras}}</td>
+                                        <td ng-style="{'color':(producto.stock<0?'red':'blue')}">{{producto.stock}}</td>
+                                        <td>{{producto.nombre}}</td>
+                                        <td ng-hide="venta.idMedioPago==1 
+                                                    || venta.idMedioPago==0 
+                                                    || venta.idMedioPago==4
+                                                    || venta.idCliente!=64">
+                                            {{producto.precioLista | currency : symbol : fractionSize}}
+                                        </td>
+                                        <td ng-hide="venta.idMedioPago==2 
+                                                    || venta.idMedioPago==3 
+                                                    || venta.idMedioPago==4
+                                                    || venta.idCliente!=64">
+                                            {{producto.precioContado | currency : symbol : fractionSize}}
+                                        </td>
+                                        <td ng-show="venta.idCliente!=64"
+                                            ng-hide="venta.idMedioPago==0
+                                                    || venta.idMedioPago==1
+                                                    || venta.idMedioPago==2
+                                                    || venta.idMedioPago==3
+                                                    || venta.idCliente==64">
+                                            {{producto.precioGremio | currency : symbol : fractionSize}}
+                                        </td>
+                                        <td>
+                                            <div class="col-lg-12">
+                                                <input type="text" 
+                                                       ng-model="producto.cantidad"
+                                                       class="form-control" 
+                                                       placeholder="1"/>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class="btn btn-info" type="submit" value=">" ng-click="addProducto(producto)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" id="detalle-venta">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="form-group venta-panel-heading">
+                                <strong>Venta</strong>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <col style="width:50%">
+                                <col style="width:20%">
+                                <col style="width:20%">
+                                <col style="width:10%">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="producto in venta.VentaDetalle">
+                                        <td>{{producto.descripcion}}</td>
+                                        <td>{{producto.cantidad}}</td>
+                                        <td ng-hide="venta.idMedioPago==1 
+                                                    || venta.idMedioPago==0 
+                                                    || venta.idMedioPago==4
+                                                    || venta.idCliente!=64">
+                                            {{producto.precioLista | currency : symbol : fractionSize}}
+                                        </td>
+                                        <td ng-hide="venta.idMedioPago==2 
+                                                    || venta.idMedioPago==3 
+                                                    || venta.idMedioPago==4
+                                                    || venta.idCliente!=64">
+                                            {{producto.precioContado | currency : symbol : fractionSize}}
+                                        </td>
+                                        <td ng-show="venta.idCliente!=64"
+                                            ng-hide="venta.idMedioPago==0
+                                                    || venta.idMedioPago==1 && venta.idCliente == 64
+                                                    || venta.idMedioPago==2 && venta.idCliente == 64
+                                                    || venta.idMedioPago==3 && venta.idCliente == 64">
+                                            {{producto.precioGremio | currency : symbol : fractionSize}}
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                           <input class="btn btn-danger pull-right" 
+                                                  type="submit" 
+                                                  value="X" 
+                                                  ng-click="removeProducto(producto)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                       
+                    </div>
+                </div>
+                
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+</div>

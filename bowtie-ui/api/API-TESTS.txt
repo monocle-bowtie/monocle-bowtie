@@ -1,0 +1,87 @@
+Pruebas
+
+PROVEEDOR
+OK: http://ec2-52-11-118-155.us-west-2.compute.amazonaws.com/api/proveedor/get
+ERROR: http://ec2-52-11-118-155.us-west-2.compute.amazonaws.com/api/Proveedor/GetProducto/2
+No se encontró la dirección
+POSTMAN: {
+  "message": "No HTTP resource was found that matches the request URI 'http://ec2-52-11-118-155.us-west-2.compute.amazonaws.com/api/Proveedor/GetProducto/2'."
+}
+Nota: Esta bien la URL? necesitaria la URL que se usa para esta prueba.
+
+----------
+api/Proveedor POST
+Necesito la URL exacta, imagino que es:
+http://ec2-52-11-118-155.us-west-2.compute.amazonaws.com/api/proveedor/post
+Necesito el JSON que usaste para probarlo.
+----------------------------------------------------
+
+PRODUCTOS
+OK: http://ec2-52-11-118-155.us-west-2.compute.amazonaws.com/api/productos/get
+OK:  http://ec2-52-11-118-155.us-west-2.compute.amazonaws.com/api/Productos/GetProductos/3
+	
+DELETE: http://ec2-52-11-118-155.us-west-2.compute.amazonaws.com/api/Productos/Delete/3
+ERROR: 	-Kily: Tira error si el producto esta registrada en una compra. 
+		-Fede: No me anduvo con id: 3, 1, 2. Son productos que no se registraron desde una compra.		   
+
+
+POST: El modelo (JSON) que tengo es el de compra/post.
+	  Esta es la única manera de hacer un post de un producto?
+
+
+-----------------------------------------------------------------------------------
+COMPRA
+OK: http://ec2-52-11-118-155.us-west-2.compute.amazonaws.com/api/Compra/post
+ {
+    "idCompra": 0,
+    "idProveedor": 1,
+    "Fecha": "2009-04-12T20:44:55",
+    "Total": 100,
+    "Estado":"A",
+    "CompraDetalle":[
+        {
+        "idCompra":0,
+        "idCompraDetalle":0,
+        "idProducto":0,
+        "NombreProducto":"Cerveza Antares",
+        "Cantidad": 120,
+        "PrecioUnitario": 70,
+        "PrecioTotal": 2134 
+        }
+    ] 
+  }
+  
+  -------------------------------------------------------------------------
+  
+  regla gral
+los parametros de auditoria
+fechaAlta
+fechaBaja
+usuarioAlta
+usuarioBaja
+nunca los tenes que pasar
+eso me encargo yo
+por ahora
+
+--------------------------------------------------------------
+
+por lo tanto en el post de producto manda en el json los demas campos
+fijate el json de compra
+sin el compradetalle
+pero solo que tenga los campos de productos
+y poniendo api/productos/post
+sale como pila
+piña
+
+
+--------------------------------------------------------------
+Compra
+
+En que campo se guarda el N° de factura?
+
+
+{"idCompra":0,"numeroFactura":"1","idProveedor":1,"Fecha":"11/11/2015","Total":100,"Estado":"A","CompraDetalle":[{"idCompra":0,"idCompraDetalle":0,"idProducto":0,"NombreProducto":"NombreProductoTest","Cantidad":1,"PrecioUnitario":100,"PrecioTotal":200},{"idCompra":0,"idCompraDetalle":0,"idProducto":0,"NombreProducto":"NombreProductoTest","Cantidad":1,"PrecioUnitario":100,"PrecioTotal":200}]}
+
+
+
+

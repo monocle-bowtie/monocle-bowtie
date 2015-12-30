@@ -1,0 +1,2521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="bowtieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="idCaja" />
+          </Key>
+          <Property Name="idCaja" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idConcepto" Type="int" Nullable="false" />
+          <Property Name="TipoMovimiento" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="UsuarioBaja" Type="int" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="Monto" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="idCiudad" />
+          </Key>
+          <Property Name="idCiudad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodigoPostal" Type="int" />
+          <Property Name="idProvincia" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="50" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+          <Property Name="idCiudad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="idCompra" />
+          </Key>
+          <Property Name="idCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProveedor" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Total" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+          <Property Name="NroFactura" Type="varchar" MaxLength="50" />
+          <Property Name="idMedioPago" Type="int" />
+        </EntityType>
+        <EntityType Name="CompraDetalle">
+          <Key>
+            <PropertyRef Name="idCompra" />
+            <PropertyRef Name="idCompraDetalle" />
+          </Key>
+          <Property Name="idCompra" Type="int" Nullable="false" />
+          <Property Name="idCompraDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="PrecioUnitario" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="PrecioTotal" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Concepto">
+          <Key>
+            <PropertyRef Name="IdConcepto" />
+          </Key>
+          <Property Name="IdConcepto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Funcion">
+          <Key>
+            <PropertyRef Name="idFuncion" />
+          </Key>
+          <Property Name="idFuncion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="FuncionXRol">
+          <Key>
+            <PropertyRef Name="idFuncion" />
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idFuncion" Type="int" Nullable="false" />
+          <Property Name="idRol" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="GrupoProducto">
+          <Key>
+            <PropertyRef Name="idGrupo" />
+          </Key>
+          <Property Name="idGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+          <Property Name="PorcentajeGrupo" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="GrupoXProducto">
+          <Key>
+            <PropertyRef Name="idGrupo" />
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idGrupo" Type="int" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="MedioPago">
+          <Key>
+            <PropertyRef Name="idMedioPago" />
+          </Key>
+          <Property Name="idMedioPago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RecargoAdicional" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+          <Property Name="Lote" Type="int" />
+          <Property Name="Comprobante" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Novedad">
+          <Key>
+            <PropertyRef Name="idNovedad" />
+          </Key>
+          <Property Name="idNovedad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="idRol" Type="int" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="idPais" />
+          </Key>
+          <Property Name="idPais" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Parametrizacion">
+          <Key>
+            <PropertyRef Name="idParametrizacion" />
+          </Key>
+          <Property Name="idParametrizacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Valor" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="PrecioLista" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="CodigoBarras" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+          <Property Name="PrecioContado" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="PrecioGremio" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="ProductoPrecio">
+          <Key>
+            <PropertyRef Name="idProducto" />
+            <PropertyRef Name="idProveedor" />
+          </Key>
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="idProveedor" Type="int" Nullable="false" />
+          <Property Name="PrecioCosto" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Promocion">
+          <Key>
+            <PropertyRef Name="IdPromocion" />
+          </Key>
+          <Property Name="IdPromocion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="Precio" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="PromocionProducto">
+          <Key>
+            <PropertyRef Name="idPromocion" />
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idPromocion" Type="int" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="idProveedor" />
+          </Key>
+          <Property Name="idProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="50" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Mail" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="idProvincia" />
+          </Key>
+          <Property Name="idProvincia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idPais" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="RolxUsuario">
+          <Key>
+            <PropertyRef Name="idRol" />
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idRol" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="idStock" />
+          </Key>
+          <Property Name="idStock" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+          <Property Name="PrecioCosto" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Sucursal">
+          <Key>
+            <PropertyRef Name="idSucursal" />
+          </Key>
+          <Property Name="idSucursal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="50" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="idCiudad" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Tarjeta">
+          <Key>
+            <PropertyRef Name="idTarjeta" />
+          </Key>
+          <Property Name="idTarjeta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idVendedor" Type="int" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="Usuario" Type="varchar" MaxLength="20" />
+          <Property Name="login" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Vendedor">
+          <Key>
+            <PropertyRef Name="idVendedor" />
+          </Key>
+          <Property Name="idVendedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="DNI" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Direccion" Type="varchar" MaxLength="50" />
+          <Property Name="FechaIngreso" Type="datetime" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+          <Property Name="idCiudad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="idVenta" />
+          </Key>
+          <Property Name="idVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idVendedor" Type="int" Nullable="false" />
+          <Property Name="idCliente" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Total" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+          <Property Name="idMedioPago" Type="int" Nullable="false" />
+          <Property Name="idSucursal" Type="int" Nullable="false" />
+          <Property Name="NroTicket" Type="varchar" MaxLength="50" />
+          <Property Name="TotalPromocion" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="idTarjeta" Type="int" />
+          <Property Name="MontoPagado" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="VentaDetalle">
+          <Key>
+            <PropertyRef Name="idVenta" />
+            <PropertyRef Name="idVentaDetalle" />
+          </Key>
+          <Property Name="idVenta" Type="int" Nullable="false" />
+          <Property Name="idVentaDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="PrecioUnitario" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="PrecioFinal" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <EntityType Name="VentaPromoDetalle">
+          <Key>
+            <PropertyRef Name="IdVenta" />
+            <PropertyRef Name="idPromoDetalle" />
+          </Key>
+          <Property Name="IdVenta" Type="int" Nullable="false" />
+          <Property Name="idPromoDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPromocion" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="PrecioUnitario" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PrecioTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="nchar" MaxLength="1" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="FechaBaja" Type="datetime" />
+          <Property Name="UsuarioBaja" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Bowtie2.dbo.productosWithStock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="productosWithStock">
+          <Key>
+            <PropertyRef Name="idProducto" />
+            <PropertyRef Name="idStock" />
+          </Key>
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="PrecioLista" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="PrecioContado" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="PrecioGremio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CodigoBarras" Type="varchar" MaxLength="50" />
+          <Property Name="Stock" Type="int" />
+          <Property Name="idStock" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Ciudad_ToTable">
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="Ciudad">
+              <PropertyRef Name="idProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_ToTable">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_ToTable">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="idProveedor" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="idProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_ToTable_1">
+          <End Role="MedioPago" Type="Self.MedioPago" Multiplicity="0..1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedioPago">
+              <PropertyRef Name="idMedioPago" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="idMedioPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompraDetalle_ToTable">
+          <End Role="Compra" Type="Self.Compra" Multiplicity="1" />
+          <End Role="CompraDetalle" Type="Self.CompraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compra">
+              <PropertyRef Name="idCompra" />
+            </Principal>
+            <Dependent Role="CompraDetalle">
+              <PropertyRef Name="idCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompraDetalle_ToTable_1">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="CompraDetalle" Type="Self.CompraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="CompraDetalle">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FuncionXRol_ToTable">
+          <End Role="Funcion" Type="Self.Funcion" Multiplicity="1" />
+          <End Role="FuncionXRol" Type="Self.FuncionXRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Funcion">
+              <PropertyRef Name="idFuncion" />
+            </Principal>
+            <Dependent Role="FuncionXRol">
+              <PropertyRef Name="idFuncion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FuncionXRol_ToTable_1">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="FuncionXRol" Type="Self.FuncionXRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="FuncionXRol">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrupoXProducto_ToTable">
+          <End Role="GrupoProducto" Type="Self.GrupoProducto" Multiplicity="1" />
+          <End Role="GrupoXProducto" Type="Self.GrupoXProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrupoProducto">
+              <PropertyRef Name="idGrupo" />
+            </Principal>
+            <Dependent Role="GrupoXProducto">
+              <PropertyRef Name="idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrupoXProducto_ToTable_1">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="GrupoXProducto" Type="Self.GrupoXProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="GrupoXProducto">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Novedad_ToTable">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Novedad" Type="Self.Novedad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="Novedad">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoPrecio_ToTable">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ProductoPrecio" Type="Self.ProductoPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="ProductoPrecio">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoPrecio_ToTable_1">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="ProductoPrecio" Type="Self.ProductoPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="idProveedor" />
+            </Principal>
+            <Dependent Role="ProductoPrecio">
+              <PropertyRef Name="idProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromocionProducto_ToTable">
+          <End Role="Promocion" Type="Self.Promocion" Multiplicity="1" />
+          <End Role="PromocionProducto" Type="Self.PromocionProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promocion">
+              <PropertyRef Name="IdPromocion" />
+            </Principal>
+            <Dependent Role="PromocionProducto">
+              <PropertyRef Name="idPromocion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromocionProducto_ToTable_1">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="PromocionProducto" Type="Self.PromocionProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="PromocionProducto">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Provincia_ToTable">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="idPais" />
+            </Principal>
+            <Dependent Role="Provincia">
+              <PropertyRef Name="idPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolxUsuario_ToTable">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="RolxUsuario" Type="Self.RolxUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RolxUsuario">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolxUsuario_ToTable_1">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="RolxUsuario" Type="Self.RolxUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="RolxUsuario">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_ToTable">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sucursal_ToTable">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="Sucursal">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_ToTable">
+          <End Role="Concepto" Type="Self.Concepto" Multiplicity="1" />
+          <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concepto">
+              <PropertyRef Name="IdConcepto" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="idConcepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_ToTable">
+          <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendedor">
+              <PropertyRef Name="idVendedor" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idVendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vendedor_ToTable">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+          <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="Vendedor">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_ToTable">
+          <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendedor">
+              <PropertyRef Name="idVendedor" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idVendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_ToTable_1">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_ToTable_2">
+          <End Role="MedioPago" Type="Self.MedioPago" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedioPago">
+              <PropertyRef Name="idMedioPago" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idMedioPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_ToTable_3">
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+          <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="idSucursal" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VentaDetalle_ToTable">
+          <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+          <End Role="VentaDetalle" Type="Self.VentaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="idVenta" />
+            </Principal>
+            <Dependent Role="VentaDetalle">
+              <PropertyRef Name="idVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VentaDetalle_ToTable_1">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="VentaDetalle" Type="Self.VentaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="VentaDetalle">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VentaPromoDetalle_ToTable">
+          <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+          <End Role="VentaPromoDetalle" Type="Self.VentaPromoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="idVenta" />
+            </Principal>
+            <Dependent Role="VentaPromoDetalle">
+              <PropertyRef Name="IdVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bowtieModelStoreContainer">
+          <EntitySet Name="Caja" EntityType="Self.Caja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ciudad" EntityType="Self.Ciudad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompraDetalle" EntityType="Self.CompraDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Concepto" EntityType="Self.Concepto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Funcion" EntityType="Self.Funcion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FuncionXRol" EntityType="Self.FuncionXRol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GrupoProducto" EntityType="Self.GrupoProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GrupoXProducto" EntityType="Self.GrupoXProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedioPago" EntityType="Self.MedioPago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Novedad" EntityType="Self.Novedad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parametrizacion" EntityType="Self.Parametrizacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoPrecio" EntityType="Self.ProductoPrecio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Promocion" EntityType="Self.Promocion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromocionProducto" EntityType="Self.PromocionProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolxUsuario" EntityType="Self.RolxUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarjeta" EntityType="Self.Tarjeta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vendedor" EntityType="Self.Vendedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VentaDetalle" EntityType="Self.VentaDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VentaPromoDetalle" EntityType="Self.VentaPromoDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productosWithStock" EntityType="Self.productosWithStock" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [productosWithStock].[idProducto] AS [idProducto], 
+    [productosWithStock].[Nombre] AS [Nombre], 
+    [productosWithStock].[PrecioLista] AS [PrecioLista], 
+    [productosWithStock].[PrecioContado] AS [PrecioContado], 
+    [productosWithStock].[PrecioGremio] AS [PrecioGremio], 
+    [productosWithStock].[CodigoBarras] AS [CodigoBarras], 
+    [productosWithStock].[Stock] AS [Stock], 
+    [productosWithStock].[idStock] AS [idStock]
+    FROM [dbo].[productosWithStock] AS [productosWithStock]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Ciudad_ToTable" Association="Self.FK_Ciudad_ToTable">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Ciudad" EntitySet="Ciudad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_ToTable" Association="Self.FK_Cliente_ToTable">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_ToTable" Association="Self.FK_Compra_ToTable">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_ToTable_1" Association="Self.FK_Compra_ToTable_1">
+            <End Role="MedioPago" EntitySet="MedioPago" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompraDetalle_ToTable" Association="Self.FK_CompraDetalle_ToTable">
+            <End Role="Compra" EntitySet="Compra" />
+            <End Role="CompraDetalle" EntitySet="CompraDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompraDetalle_ToTable_1" Association="Self.FK_CompraDetalle_ToTable_1">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="CompraDetalle" EntitySet="CompraDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FuncionXRol_ToTable" Association="Self.FK_FuncionXRol_ToTable">
+            <End Role="Funcion" EntitySet="Funcion" />
+            <End Role="FuncionXRol" EntitySet="FuncionXRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FuncionXRol_ToTable_1" Association="Self.FK_FuncionXRol_ToTable_1">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="FuncionXRol" EntitySet="FuncionXRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrupoXProducto_ToTable" Association="Self.FK_GrupoXProducto_ToTable">
+            <End Role="GrupoProducto" EntitySet="GrupoProducto" />
+            <End Role="GrupoXProducto" EntitySet="GrupoXProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrupoXProducto_ToTable_1" Association="Self.FK_GrupoXProducto_ToTable_1">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="GrupoXProducto" EntitySet="GrupoXProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Novedad_ToTable" Association="Self.FK_Novedad_ToTable">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Novedad" EntitySet="Novedad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoPrecio_ToTable" Association="Self.FK_ProductoPrecio_ToTable">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductoPrecio" EntitySet="ProductoPrecio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoPrecio_ToTable_1" Association="Self.FK_ProductoPrecio_ToTable_1">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="ProductoPrecio" EntitySet="ProductoPrecio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromocionProducto_ToTable" Association="Self.FK_PromocionProducto_ToTable">
+            <End Role="Promocion" EntitySet="Promocion" />
+            <End Role="PromocionProducto" EntitySet="PromocionProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromocionProducto_ToTable_1" Association="Self.FK_PromocionProducto_ToTable_1">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="PromocionProducto" EntitySet="PromocionProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provincia_ToTable" Association="Self.FK_Provincia_ToTable">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Provincia" EntitySet="Provincia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolxUsuario_ToTable" Association="Self.FK_RolxUsuario_ToTable">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RolxUsuario" EntitySet="RolxUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolxUsuario_ToTable_1" Association="Self.FK_RolxUsuario_ToTable_1">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="RolxUsuario" EntitySet="RolxUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_ToTable" Association="Self.FK_Stock_ToTable">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sucursal_ToTable" Association="Self.FK_Sucursal_ToTable">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Sucursal" EntitySet="Sucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_ToTable" Association="Self.FK_Table_ToTable">
+            <End Role="Concepto" EntitySet="Concepto" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_ToTable" Association="Self.FK_Usuario_ToTable">
+            <End Role="Vendedor" EntitySet="Vendedor" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vendedor_ToTable" Association="Self.FK_Vendedor_ToTable">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Vendedor" EntitySet="Vendedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_ToTable" Association="Self.FK_Venta_ToTable">
+            <End Role="Vendedor" EntitySet="Vendedor" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_ToTable_1" Association="Self.FK_Venta_ToTable_1">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_ToTable_2" Association="Self.FK_Venta_ToTable_2">
+            <End Role="MedioPago" EntitySet="MedioPago" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_ToTable_3" Association="Self.FK_Venta_ToTable_3">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VentaDetalle_ToTable" Association="Self.FK_VentaDetalle_ToTable">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="VentaDetalle" EntitySet="VentaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VentaDetalle_ToTable_1" Association="Self.FK_VentaDetalle_ToTable_1">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="VentaDetalle" EntitySet="VentaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VentaPromoDetalle_ToTable" Association="Self.FK_VentaPromoDetalle_ToTable">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="VentaPromoDetalle" EntitySet="VentaPromoDetalle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bowtieModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="idCiudad" />
+          </Key>
+          <Property Name="idCiudad" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CodigoPostal" Type="Int32" />
+          <Property Name="idProvincia" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Provincia" Relationship="Self.FK_Ciudad_ToTable" FromRole="Ciudad" ToRole="Provincia" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_ToTable" FromRole="Ciudad" ToRole="Cliente" />
+          <NavigationProperty Name="Sucursal" Relationship="Self.FK_Sucursal_ToTable" FromRole="Ciudad" ToRole="Sucursal" />
+          <NavigationProperty Name="Vendedor" Relationship="Self.FK_Vendedor_ToTable" FromRole="Ciudad" ToRole="Vendedor" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <Property Name="idCiudad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ciudad" Relationship="Self.FK_Cliente_ToTable" FromRole="Cliente" ToRole="Ciudad" />
+          <NavigationProperty Name="Venta" Relationship="bowtieModel.FK_Venta_ToTable_1" FromRole="Cliente" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="CompraDetalle">
+          <Key>
+            <PropertyRef Name="idCompra" />
+            <PropertyRef Name="idCompraDetalle" />
+          </Key>
+          <Property Name="idCompra" Type="Int32" Nullable="false" />
+          <Property Name="idCompraDetalle" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="PrecioUnitario" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PrecioTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_CompraDetalle_ToTable_1" FromRole="CompraDetalle" ToRole="Producto" />
+          <NavigationProperty Name="Compra" Relationship="bowtieModel.FK_CompraDetalle_ToTable" FromRole="CompraDetalle" ToRole="Compra" />
+        </EntityType>
+        <EntityType Name="Funcion">
+          <Key>
+            <PropertyRef Name="idFuncion" />
+          </Key>
+          <Property Name="idFuncion" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="FuncionXRol" Relationship="Self.FK_FuncionXRol_ToTable" FromRole="Funcion" ToRole="FuncionXRol" />
+        </EntityType>
+        <EntityType Name="FuncionXRol">
+          <Key>
+            <PropertyRef Name="idFuncion" />
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idFuncion" Type="Int32" Nullable="false" />
+          <Property Name="idRol" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Funcion" Relationship="Self.FK_FuncionXRol_ToTable" FromRole="FuncionXRol" ToRole="Funcion" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_FuncionXRol_ToTable_1" FromRole="FuncionXRol" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="GrupoProducto">
+          <Key>
+            <PropertyRef Name="idGrupo" />
+          </Key>
+          <Property Name="idGrupo" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <Property Name="PorcentajeGrupo" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="GrupoXProducto" Relationship="Self.FK_GrupoXProducto_ToTable" FromRole="GrupoProducto" ToRole="GrupoXProducto" />
+        </EntityType>
+        <EntityType Name="GrupoXProducto">
+          <Key>
+            <PropertyRef Name="idGrupo" />
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idGrupo" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="GrupoProducto" Relationship="Self.FK_GrupoXProducto_ToTable" FromRole="GrupoXProducto" ToRole="GrupoProducto" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_GrupoXProducto_ToTable_1" FromRole="GrupoXProducto" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Novedad">
+          <Key>
+            <PropertyRef Name="idNovedad" />
+          </Key>
+          <Property Name="idNovedad" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="idRol" Type="Int32" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_Novedad_ToTable" FromRole="Novedad" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="idPais" />
+          </Key>
+          <Property Name="idPais" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Provincia" Relationship="Self.FK_Provincia_ToTable" FromRole="Pais" ToRole="Provincia" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoBarras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="CompraDetalle" Relationship="Self.FK_CompraDetalle_ToTable_1" FromRole="Producto" ToRole="CompraDetalle" />
+          <NavigationProperty Name="GrupoXProducto" Relationship="Self.FK_GrupoXProducto_ToTable_1" FromRole="Producto" ToRole="GrupoXProducto" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_Stock_ToTable" FromRole="Producto" ToRole="Stock" />
+          <NavigationProperty Name="VentaDetalle" Relationship="Self.FK_VentaDetalle_ToTable_1" FromRole="Producto" ToRole="VentaDetalle" />
+          <Property Name="PrecioLista" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PrecioContado" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="PromocionProducto" Relationship="bowtieModel.FK_PromocionProducto_ToTable_1" FromRole="Producto" ToRole="PromocionProducto" />
+          <NavigationProperty Name="ProductoPrecio" Relationship="bowtieModel.FK_ProductoPrecio_ToTable" FromRole="Producto" ToRole="ProductoPrecio" />
+          <Property Name="PrecioGremio" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="idProveedor" />
+          </Key>
+          <Property Name="idProveedor" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="ProductoPrecio" Relationship="bowtieModel.FK_ProductoPrecio_ToTable_1" FromRole="Proveedor" ToRole="ProductoPrecio" />
+          <NavigationProperty Name="Compra" Relationship="bowtieModel.FK_Compra_ToTable" FromRole="Proveedor" ToRole="Compra" />
+        </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="idProvincia" />
+          </Key>
+          <Property Name="idProvincia" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idPais" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Ciudad" Relationship="Self.FK_Ciudad_ToTable" FromRole="Provincia" ToRole="Ciudad" />
+          <NavigationProperty Name="Pais" Relationship="Self.FK_Provincia_ToTable" FromRole="Provincia" ToRole="Pais" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="FuncionXRol" Relationship="Self.FK_FuncionXRol_ToTable_1" FromRole="Rol" ToRole="FuncionXRol" />
+          <NavigationProperty Name="Novedad" Relationship="Self.FK_Novedad_ToTable" FromRole="Rol" ToRole="Novedad" />
+          <NavigationProperty Name="RolxUsuario" Relationship="Self.FK_RolxUsuario_ToTable_1" FromRole="Rol" ToRole="RolxUsuario" />
+        </EntityType>
+        <EntityType Name="RolxUsuario">
+          <Key>
+            <PropertyRef Name="idRol" />
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idRol" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_RolxUsuario_ToTable_1" FromRole="RolxUsuario" ToRole="Rol" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_RolxUsuario_ToTable" FromRole="RolxUsuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="idStock" />
+          </Key>
+          <Property Name="idStock" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <Property Name="PrecioCosto" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_Stock_ToTable" FromRole="Stock" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Sucursal">
+          <Key>
+            <PropertyRef Name="idSucursal" />
+          </Key>
+          <Property Name="idSucursal" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idCiudad" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Ciudad" Relationship="Self.FK_Sucursal_ToTable" FromRole="Sucursal" ToRole="Ciudad" />
+          <NavigationProperty Name="Venta" Relationship="bowtieModel.FK_Venta_ToTable_3" FromRole="Sucursal" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idVendedor" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Usuario1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RolxUsuario" Relationship="Self.FK_RolxUsuario_ToTable" FromRole="Usuario" ToRole="RolxUsuario" />
+          <NavigationProperty Name="Vendedor" Relationship="Self.FK_Usuario_ToTable" FromRole="Usuario" ToRole="Vendedor" />
+          <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Vendedor">
+          <Key>
+            <PropertyRef Name="idVendedor" />
+          </Key>
+          <Property Name="idVendedor" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DNI" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Precision="3" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <Property Name="idCiudad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ciudad" Relationship="Self.FK_Vendedor_ToTable" FromRole="Vendedor" ToRole="Ciudad" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_ToTable" FromRole="Vendedor" ToRole="Usuario" />
+          <NavigationProperty Name="Venta" Relationship="bowtieModel.FK_Venta_ToTable" FromRole="Vendedor" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="VentaDetalle">
+          <Key>
+            <PropertyRef Name="idVenta" />
+            <PropertyRef Name="idVentaDetalle" />
+          </Key>
+          <Property Name="idVenta" Type="Int32" Nullable="false" />
+          <Property Name="idVentaDetalle" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="PrecioUnitario" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="PrecioFinal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK_VentaDetalle_ToTable_1" FromRole="VentaDetalle" ToRole="Producto" />
+          <NavigationProperty Name="Venta" Relationship="bowtieModel.FK_VentaDetalle_ToTable" FromRole="VentaDetalle" ToRole="Venta" />
+        </EntityType>
+        <Association Name="FK_Ciudad_ToTable">
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="Ciudad">
+              <PropertyRef Name="idProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_ToTable">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sucursal_ToTable">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+          <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="Sucursal">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vendedor_ToTable">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+          <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="idCiudad" />
+            </Principal>
+            <Dependent Role="Vendedor">
+              <PropertyRef Name="idCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompraDetalle_ToTable_1">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="CompraDetalle" Type="Self.CompraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="CompraDetalle">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FuncionXRol_ToTable">
+          <End Role="Funcion" Type="Self.Funcion" Multiplicity="1" />
+          <End Role="FuncionXRol" Type="Self.FuncionXRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Funcion">
+              <PropertyRef Name="idFuncion" />
+            </Principal>
+            <Dependent Role="FuncionXRol">
+              <PropertyRef Name="idFuncion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FuncionXRol_ToTable_1">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="FuncionXRol" Type="Self.FuncionXRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="FuncionXRol">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrupoXProducto_ToTable">
+          <End Role="GrupoProducto" Type="Self.GrupoProducto" Multiplicity="1" />
+          <End Role="GrupoXProducto" Type="Self.GrupoXProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrupoProducto">
+              <PropertyRef Name="idGrupo" />
+            </Principal>
+            <Dependent Role="GrupoXProducto">
+              <PropertyRef Name="idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrupoXProducto_ToTable_1">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="GrupoXProducto" Type="Self.GrupoXProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="GrupoXProducto">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Novedad_ToTable">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Novedad" Type="Self.Novedad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="Novedad">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Provincia_ToTable">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="idPais" />
+            </Principal>
+            <Dependent Role="Provincia">
+              <PropertyRef Name="idPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_ToTable">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VentaDetalle_ToTable_1">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="VentaDetalle" Type="Self.VentaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="VentaDetalle">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolxUsuario_ToTable_1">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="RolxUsuario" Type="Self.RolxUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="RolxUsuario">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolxUsuario_ToTable">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="RolxUsuario" Type="Self.RolxUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RolxUsuario">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_ToTable">
+          <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendedor">
+              <PropertyRef Name="idVendedor" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idVendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bowtieEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ciudad" EntityType="Self.Ciudad" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="CompraDetalle" EntityType="Self.CompraDetalle" />
+          <EntitySet Name="Funcion" EntityType="Self.Funcion" />
+          <EntitySet Name="FuncionXRol" EntityType="Self.FuncionXRol" />
+          <EntitySet Name="GrupoProducto" EntityType="Self.GrupoProducto" />
+          <EntitySet Name="GrupoXProducto" EntityType="Self.GrupoXProducto" />
+          <EntitySet Name="Novedad" EntityType="Self.Novedad" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
+          <EntitySet Name="Provincia" EntityType="Self.Provincia" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="RolxUsuario" EntityType="Self.RolxUsuario" />
+          <EntitySet Name="Stock" EntityType="Self.Stock" />
+          <EntitySet Name="Sucursal" EntityType="Self.Sucursal" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="Vendedor" EntityType="Self.Vendedor" />
+          <EntitySet Name="VentaDetalle" EntityType="Self.VentaDetalle" />
+          <AssociationSet Name="FK_Ciudad_ToTable" Association="Self.FK_Ciudad_ToTable">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Ciudad" EntitySet="Ciudad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_ToTable" Association="Self.FK_Cliente_ToTable">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sucursal_ToTable" Association="Self.FK_Sucursal_ToTable">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Sucursal" EntitySet="Sucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vendedor_ToTable" Association="Self.FK_Vendedor_ToTable">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Vendedor" EntitySet="Vendedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompraDetalle_ToTable_1" Association="Self.FK_CompraDetalle_ToTable_1">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="CompraDetalle" EntitySet="CompraDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FuncionXRol_ToTable" Association="Self.FK_FuncionXRol_ToTable">
+            <End Role="Funcion" EntitySet="Funcion" />
+            <End Role="FuncionXRol" EntitySet="FuncionXRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FuncionXRol_ToTable_1" Association="Self.FK_FuncionXRol_ToTable_1">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="FuncionXRol" EntitySet="FuncionXRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrupoXProducto_ToTable" Association="Self.FK_GrupoXProducto_ToTable">
+            <End Role="GrupoProducto" EntitySet="GrupoProducto" />
+            <End Role="GrupoXProducto" EntitySet="GrupoXProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrupoXProducto_ToTable_1" Association="Self.FK_GrupoXProducto_ToTable_1">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="GrupoXProducto" EntitySet="GrupoXProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Novedad_ToTable" Association="Self.FK_Novedad_ToTable">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Novedad" EntitySet="Novedad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Provincia_ToTable" Association="Self.FK_Provincia_ToTable">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Provincia" EntitySet="Provincia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_ToTable" Association="Self.FK_Stock_ToTable">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VentaDetalle_ToTable_1" Association="Self.FK_VentaDetalle_ToTable_1">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="VentaDetalle" EntitySet="VentaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolxUsuario_ToTable_1" Association="Self.FK_RolxUsuario_ToTable_1">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="RolxUsuario" EntitySet="RolxUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolxUsuario_ToTable" Association="Self.FK_RolxUsuario_ToTable">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RolxUsuario" EntitySet="RolxUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_ToTable" Association="Self.FK_Usuario_ToTable">
+            <End Role="Vendedor" EntitySet="Vendedor" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <EntitySet Name="PromocionProducto" EntityType="bowtieModel.PromocionProducto" />
+          <AssociationSet Name="FK_PromocionProducto_ToTable_1" Association="bowtieModel.FK_PromocionProducto_ToTable_1">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="PromocionProducto" EntitySet="PromocionProducto" />
+          </AssociationSet>
+          <EntitySet Name="ProductoPrecio" EntityType="bowtieModel.ProductoPrecio" />
+          <AssociationSet Name="FK_ProductoPrecio_ToTable" Association="bowtieModel.FK_ProductoPrecio_ToTable">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductoPrecio" EntitySet="ProductoPrecio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoPrecio_ToTable_1" Association="bowtieModel.FK_ProductoPrecio_ToTable_1">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="ProductoPrecio" EntitySet="ProductoPrecio" />
+          </AssociationSet>
+          <EntitySet Name="Compra" EntityType="bowtieModel.Compra" />
+          <AssociationSet Name="FK_Compra_ToTable" Association="bowtieModel.FK_Compra_ToTable">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompraDetalle_ToTable" Association="bowtieModel.FK_CompraDetalle_ToTable">
+            <End Role="Compra" EntitySet="Compra" />
+            <End Role="CompraDetalle" EntitySet="CompraDetalle" />
+          </AssociationSet>
+          <EntitySet Name="MedioPago" EntityType="bowtieModel.MedioPago" />
+          <AssociationSet Name="FK_Compra_ToTable_1" Association="bowtieModel.FK_Compra_ToTable_1">
+            <End Role="MedioPago" EntitySet="MedioPago" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <EntitySet Name="Concepto" EntityType="bowtieModel.Concepto" />
+          <EntitySet Name="VentaPromoDetalle" EntityType="bowtieModel.VentaPromoDetalle" />
+          <EntitySet Name="Caja" EntityType="bowtieModel.Caja" />
+          <AssociationSet Name="FK_Table_ToTable" Association="bowtieModel.FK_Table_ToTable">
+            <End Role="Concepto" EntitySet="Concepto" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <EntitySet Name="Parametrizacion" EntityType="bowtieModel.Parametrizacion" />
+          <EntitySet Name="Promocion" EntityType="bowtieModel.Promocion" />
+          <AssociationSet Name="FK_PromocionProducto_ToTable" Association="bowtieModel.FK_PromocionProducto_ToTable">
+            <End Role="Promocion" EntitySet="Promocion" />
+            <End Role="PromocionProducto" EntitySet="PromocionProducto" />
+          </AssociationSet>
+          <EntitySet Name="Tarjeta" EntityType="bowtieModel.Tarjeta" />
+          <EntitySet Name="Venta" EntityType="bowtieModel.Venta" />
+          <AssociationSet Name="FK_Venta_ToTable_1" Association="bowtieModel.FK_Venta_ToTable_1">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_ToTable_2" Association="bowtieModel.FK_Venta_ToTable_2">
+            <End Role="MedioPago" EntitySet="MedioPago" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_ToTable_3" Association="bowtieModel.FK_Venta_ToTable_3">
+            <End Role="Sucursal" EntitySet="Sucursal" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_ToTable" Association="bowtieModel.FK_Venta_ToTable">
+            <End Role="Vendedor" EntitySet="Vendedor" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VentaDetalle_ToTable" Association="bowtieModel.FK_VentaDetalle_ToTable">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="VentaDetalle" EntitySet="VentaDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VentaPromoDetalle_ToTable" Association="bowtieModel.FK_VentaPromoDetalle_ToTable">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="VentaPromoDetalle" EntitySet="VentaPromoDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Venta_ToTable_4" Association="bowtieModel.FK_Venta_ToTable_4">
+            <End Role="Tarjeta" EntitySet="Tarjeta" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <EntitySet Name="productosWithStock" EntityType="bowtieModel.productosWithStock" />
+          </EntityContainer>
+        <EntityType Name="PromocionProducto">
+          <Key>
+            <PropertyRef Name="idPromocion" />
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idPromocion" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Producto" Relationship="bowtieModel.FK_PromocionProducto_ToTable_1" FromRole="PromocionProducto" ToRole="Producto" />
+          <NavigationProperty Name="Promocion" Relationship="bowtieModel.FK_PromocionProducto_ToTable" FromRole="PromocionProducto" ToRole="Promocion" />
+          </EntityType>
+        <Association Name="FK_PromocionProducto_ToTable_1">
+          <End Type="bowtieModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="bowtieModel.PromocionProducto" Role="PromocionProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="PromocionProducto">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductoPrecio">
+          <Key>
+            <PropertyRef Name="idProducto" />
+            <PropertyRef Name="idProveedor" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="idProveedor" Type="Int32" Nullable="false" />
+          <Property Name="PrecioCosto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Producto" Relationship="bowtieModel.FK_ProductoPrecio_ToTable" FromRole="ProductoPrecio" ToRole="Producto" />
+          <NavigationProperty Name="Proveedor" Relationship="bowtieModel.FK_ProductoPrecio_ToTable_1" FromRole="ProductoPrecio" ToRole="Proveedor" />
+        </EntityType>
+        <Association Name="FK_ProductoPrecio_ToTable">
+          <End Type="bowtieModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="bowtieModel.ProductoPrecio" Role="ProductoPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="ProductoPrecio">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoPrecio_ToTable_1">
+          <End Type="bowtieModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+          <End Type="bowtieModel.ProductoPrecio" Role="ProductoPrecio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="idProveedor" />
+            </Principal>
+            <Dependent Role="ProductoPrecio">
+              <PropertyRef Name="idProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="idCompra" />
+          </Key>
+          <Property Name="idCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProveedor" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <Property Name="NroFactura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idMedioPago" Type="Int32" />
+          <NavigationProperty Name="Proveedor" Relationship="bowtieModel.FK_Compra_ToTable" FromRole="Compra" ToRole="Proveedor" />
+          <NavigationProperty Name="CompraDetalle" Relationship="bowtieModel.FK_CompraDetalle_ToTable" FromRole="Compra" ToRole="CompraDetalle" />
+          <NavigationProperty Name="MedioPago" Relationship="bowtieModel.FK_Compra_ToTable_1" FromRole="Compra" ToRole="MedioPago" />
+        </EntityType>
+        <Association Name="FK_Compra_ToTable">
+          <End Type="bowtieModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+          <End Type="bowtieModel.Compra" Role="Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="idProveedor" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="idProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompraDetalle_ToTable">
+          <End Type="bowtieModel.Compra" Role="Compra" Multiplicity="1" />
+          <End Type="bowtieModel.CompraDetalle" Role="CompraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compra">
+              <PropertyRef Name="idCompra" />
+            </Principal>
+            <Dependent Role="CompraDetalle">
+              <PropertyRef Name="idCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MedioPago">
+          <Key>
+            <PropertyRef Name="idMedioPago" />
+          </Key>
+          <Property Name="idMedioPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RecargoAdicional" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <Property Name="Lote" Type="Int32" />
+          <Property Name="Comprobante" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Compra" Relationship="bowtieModel.FK_Compra_ToTable_1" FromRole="MedioPago" ToRole="Compra" />
+          <NavigationProperty Name="Venta" Relationship="bowtieModel.FK_Venta_ToTable_2" FromRole="MedioPago" ToRole="Venta" />
+        </EntityType>
+        <Association Name="FK_Compra_ToTable_1">
+          <End Type="bowtieModel.MedioPago" Role="MedioPago" Multiplicity="0..1" />
+          <End Type="bowtieModel.Compra" Role="Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedioPago">
+              <PropertyRef Name="idMedioPago" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="idMedioPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Concepto">
+          <Key>
+            <PropertyRef Name="IdConcepto" />
+          </Key>
+          <Property Name="IdConcepto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Caja" Relationship="bowtieModel.FK_Table_ToTable" FromRole="Concepto" ToRole="Caja" />
+        </EntityType>
+        <EntityType Name="VentaPromoDetalle">
+          <Key>
+            <PropertyRef Name="IdVenta" />
+            <PropertyRef Name="idPromoDetalle" />
+          </Key>
+          <Property Name="IdVenta" Type="Int32" Nullable="false" />
+          <Property Name="idPromoDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPromocion" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="PrecioUnitario" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PrecioTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Venta" Relationship="bowtieModel.FK_VentaPromoDetalle_ToTable" FromRole="VentaPromoDetalle" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="idCaja" />
+          </Key>
+          <Property Name="idCaja" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idConcepto" Type="Int32" Nullable="false" />
+          <Property Name="TipoMovimiento" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="Monto" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Concepto" Relationship="bowtieModel.FK_Table_ToTable" FromRole="Caja" ToRole="Concepto" />
+        </EntityType>
+        <Association Name="FK_Table_ToTable">
+          <End Type="bowtieModel.Concepto" Role="Concepto" Multiplicity="1" />
+          <End Type="bowtieModel.Caja" Role="Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concepto">
+              <PropertyRef Name="IdConcepto" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="idConcepto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Parametrizacion">
+          <Key>
+            <PropertyRef Name="idParametrizacion" />
+          </Key>
+          <Property Name="idParametrizacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Valor" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Promocion">
+          <Key>
+            <PropertyRef Name="IdPromocion" />
+          </Key>
+          <Property Name="IdPromocion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="PromocionProducto" Relationship="bowtieModel.FK_PromocionProducto_ToTable" FromRole="Promocion" ToRole="PromocionProducto" />
+        </EntityType>
+        <Association Name="FK_PromocionProducto_ToTable">
+          <End Type="bowtieModel.Promocion" Role="Promocion" Multiplicity="1" />
+          <End Type="bowtieModel.PromocionProducto" Role="PromocionProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promocion">
+              <PropertyRef Name="IdPromocion" />
+            </Principal>
+            <Dependent Role="PromocionProducto">
+              <PropertyRef Name="idPromocion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tarjeta">
+          <Key>
+            <PropertyRef Name="idTarjeta" />
+          </Key>
+          <Property Name="idTarjeta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <NavigationProperty Name="Venta" Relationship="bowtieModel.FK_Venta_ToTable_4" FromRole="Tarjeta" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="idVenta" />
+          </Key>
+          <Property Name="idVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idVendedor" Type="Int32" Nullable="false" />
+          <Property Name="idCliente" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioBaja" Type="Int32" />
+          <Property Name="idMedioPago" Type="Int32" Nullable="false" />
+          <Property Name="idSucursal" Type="Int32" Nullable="false" />
+          <Property Name="NroTicket" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalPromocion" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Cliente" Relationship="bowtieModel.FK_Venta_ToTable_1" FromRole="Venta" ToRole="Cliente" />
+          <NavigationProperty Name="MedioPago" Relationship="bowtieModel.FK_Venta_ToTable_2" FromRole="Venta" ToRole="MedioPago" />
+          <NavigationProperty Name="Sucursal" Relationship="bowtieModel.FK_Venta_ToTable_3" FromRole="Venta" ToRole="Sucursal" />
+          <NavigationProperty Name="Vendedor" Relationship="bowtieModel.FK_Venta_ToTable" FromRole="Venta" ToRole="Vendedor" />
+          <NavigationProperty Name="VentaDetalle" Relationship="bowtieModel.FK_VentaDetalle_ToTable" FromRole="Venta" ToRole="VentaDetalle" />
+          <NavigationProperty Name="VentaPromoDetalle" Relationship="bowtieModel.FK_VentaPromoDetalle_ToTable" FromRole="Venta" ToRole="VentaPromoDetalle" />
+          <Property Name="idTarjeta" Type="Int32" />
+          <Property Name="MontoPagado" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Tarjeta" Relationship="bowtieModel.FK_Venta_ToTable_4" FromRole="Venta" ToRole="Tarjeta" />
+        </EntityType>
+        <Association Name="FK_Venta_ToTable_1">
+          <End Type="bowtieModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="bowtieModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_ToTable_2">
+          <End Type="bowtieModel.MedioPago" Role="MedioPago" Multiplicity="1" />
+          <End Type="bowtieModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedioPago">
+              <PropertyRef Name="idMedioPago" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idMedioPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_ToTable_3">
+          <End Type="bowtieModel.Sucursal" Role="Sucursal" Multiplicity="1" />
+          <End Type="bowtieModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursal">
+              <PropertyRef Name="idSucursal" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idSucursal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_ToTable">
+          <End Type="bowtieModel.Vendedor" Role="Vendedor" Multiplicity="1" />
+          <End Type="bowtieModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendedor">
+              <PropertyRef Name="idVendedor" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idVendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VentaDetalle_ToTable">
+          <End Type="bowtieModel.Venta" Role="Venta" Multiplicity="1" />
+          <End Type="bowtieModel.VentaDetalle" Role="VentaDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="idVenta" />
+            </Principal>
+            <Dependent Role="VentaDetalle">
+              <PropertyRef Name="idVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VentaPromoDetalle_ToTable">
+          <End Type="bowtieModel.Venta" Role="Venta" Multiplicity="1" />
+          <End Type="bowtieModel.VentaPromoDetalle" Role="VentaPromoDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="idVenta" />
+            </Principal>
+            <Dependent Role="VentaPromoDetalle">
+              <PropertyRef Name="IdVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Venta_ToTable_4">
+          <End Type="bowtieModel.Tarjeta" Role="Tarjeta" Multiplicity="0..1" />
+          <End Type="bowtieModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarjeta">
+              <PropertyRef Name="idTarjeta" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="idTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="productosWithStock">
+          <Key>
+            <PropertyRef Name="idProducto" />
+            <PropertyRef Name="idStock" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PrecioLista" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PrecioContado" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CodigoBarras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Stock" Type="Int32" />
+          <Property Name="idStock" Type="Int32" Nullable="false" />
+          <Property Name="PrecioGremio" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bowtieModelStoreContainer" CdmEntityContainer="bowtieEntities">
+          <EntitySetMapping Name="Ciudad">
+            <EntityTypeMapping TypeName="bowtieModel.Ciudad">
+              <MappingFragment StoreEntitySet="Ciudad">
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="idProvincia" ColumnName="idProvincia" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="bowtieModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompraDetalle">
+            <EntityTypeMapping TypeName="bowtieModel.CompraDetalle">
+              <MappingFragment StoreEntitySet="CompraDetalle">
+                <ScalarProperty Name="idCompra" ColumnName="idCompra" />
+                <ScalarProperty Name="idCompraDetalle" ColumnName="idCompraDetalle" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
+                <ScalarProperty Name="PrecioTotal" ColumnName="PrecioTotal" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Funcion">
+            <EntityTypeMapping TypeName="bowtieModel.Funcion">
+              <MappingFragment StoreEntitySet="Funcion">
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FuncionXRol">
+            <EntityTypeMapping TypeName="bowtieModel.FuncionXRol">
+              <MappingFragment StoreEntitySet="FuncionXRol">
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GrupoProducto">
+            <EntityTypeMapping TypeName="bowtieModel.GrupoProducto">
+              <MappingFragment StoreEntitySet="GrupoProducto">
+                <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="PorcentajeGrupo" ColumnName="PorcentajeGrupo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GrupoXProducto">
+            <EntityTypeMapping TypeName="bowtieModel.GrupoXProducto">
+              <MappingFragment StoreEntitySet="GrupoXProducto">
+                <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Novedad">
+            <EntityTypeMapping TypeName="bowtieModel.Novedad">
+              <MappingFragment StoreEntitySet="Novedad">
+                <ScalarProperty Name="idNovedad" ColumnName="idNovedad" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="bowtieModel.Pais">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="idPais" ColumnName="idPais" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="bowtieModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="PrecioGremio" ColumnName="PrecioGremio" />
+                <ScalarProperty Name="PrecioContado" ColumnName="PrecioContado" />
+                <ScalarProperty Name="PrecioLista" ColumnName="PrecioLista" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CodigoBarras" ColumnName="CodigoBarras" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedor">
+            <EntityTypeMapping TypeName="bowtieModel.Proveedor">
+              <MappingFragment StoreEntitySet="Proveedor">
+                <ScalarProperty Name="idProveedor" ColumnName="idProveedor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provincia">
+            <EntityTypeMapping TypeName="bowtieModel.Provincia">
+              <MappingFragment StoreEntitySet="Provincia">
+                <ScalarProperty Name="idProvincia" ColumnName="idProvincia" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idPais" ColumnName="idPais" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="bowtieModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolxUsuario">
+            <EntityTypeMapping TypeName="bowtieModel.RolxUsuario">
+              <MappingFragment StoreEntitySet="RolxUsuario">
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stock">
+            <EntityTypeMapping TypeName="bowtieModel.Stock">
+              <MappingFragment StoreEntitySet="Stock">
+                <ScalarProperty Name="idStock" ColumnName="idStock" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="PrecioCosto" ColumnName="PrecioCosto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sucursal">
+            <EntityTypeMapping TypeName="bowtieModel.Sucursal">
+              <MappingFragment StoreEntitySet="Sucursal">
+                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="bowtieModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idVendedor" ColumnName="idVendedor" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendedor">
+            <EntityTypeMapping TypeName="bowtieModel.Vendedor">
+              <MappingFragment StoreEntitySet="Vendedor">
+                <ScalarProperty Name="idVendedor" ColumnName="idVendedor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="idCiudad" ColumnName="idCiudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VentaDetalle">
+            <EntityTypeMapping TypeName="bowtieModel.VentaDetalle">
+              <MappingFragment StoreEntitySet="VentaDetalle">
+                <ScalarProperty Name="idVenta" ColumnName="idVenta" />
+                <ScalarProperty Name="idVentaDetalle" ColumnName="idVentaDetalle" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="PrecioFinal" ColumnName="PrecioFinal" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromocionProducto">
+            <EntityTypeMapping TypeName="bowtieModel.PromocionProducto">
+              <MappingFragment StoreEntitySet="PromocionProducto">
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idPromocion" ColumnName="idPromocion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoPrecio">
+            <EntityTypeMapping TypeName="bowtieModel.ProductoPrecio">
+              <MappingFragment StoreEntitySet="ProductoPrecio">
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="PrecioCosto" ColumnName="PrecioCosto" />
+                <ScalarProperty Name="idProveedor" ColumnName="idProveedor" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compra">
+            <EntityTypeMapping TypeName="bowtieModel.Compra">
+              <MappingFragment StoreEntitySet="Compra">
+                <ScalarProperty Name="idMedioPago" ColumnName="idMedioPago" />
+                <ScalarProperty Name="NroFactura" ColumnName="NroFactura" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="idProveedor" ColumnName="idProveedor" />
+                <ScalarProperty Name="idCompra" ColumnName="idCompra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedioPago">
+            <EntityTypeMapping TypeName="bowtieModel.MedioPago">
+              <MappingFragment StoreEntitySet="MedioPago">
+                <ScalarProperty Name="Comprobante" ColumnName="Comprobante" />
+                <ScalarProperty Name="Lote" ColumnName="Lote" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="RecargoAdicional" ColumnName="RecargoAdicional" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idMedioPago" ColumnName="idMedioPago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Concepto">
+            <EntityTypeMapping TypeName="bowtieModel.Concepto">
+              <MappingFragment StoreEntitySet="Concepto">
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdConcepto" ColumnName="IdConcepto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VentaPromoDetalle">
+            <EntityTypeMapping TypeName="bowtieModel.VentaPromoDetalle">
+              <MappingFragment StoreEntitySet="VentaPromoDetalle">
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="PrecioTotal" ColumnName="PrecioTotal" />
+                <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="idPromocion" ColumnName="idPromocion" />
+                <ScalarProperty Name="idPromoDetalle" ColumnName="idPromoDetalle" />
+                <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Caja">
+            <EntityTypeMapping TypeName="bowtieModel.Caja">
+              <MappingFragment StoreEntitySet="Caja">
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="TipoMovimiento" ColumnName="TipoMovimiento" />
+                <ScalarProperty Name="idConcepto" ColumnName="idConcepto" />
+                <ScalarProperty Name="idCaja" ColumnName="idCaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parametrizacion">
+            <EntityTypeMapping TypeName="bowtieModel.Parametrizacion">
+              <MappingFragment StoreEntitySet="Parametrizacion">
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idParametrizacion" ColumnName="idParametrizacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promocion">
+            <EntityTypeMapping TypeName="bowtieModel.Promocion">
+              <MappingFragment StoreEntitySet="Promocion">
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdPromocion" ColumnName="IdPromocion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarjeta">
+            <EntityTypeMapping TypeName="bowtieModel.Tarjeta">
+              <MappingFragment StoreEntitySet="Tarjeta">
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idTarjeta" ColumnName="idTarjeta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venta">
+            <EntityTypeMapping TypeName="bowtieModel.Venta">
+              <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="MontoPagado" ColumnName="MontoPagado" />
+                <ScalarProperty Name="idTarjeta" ColumnName="idTarjeta" />
+                <ScalarProperty Name="TotalPromocion" ColumnName="TotalPromocion" />
+                <ScalarProperty Name="NroTicket" ColumnName="NroTicket" />
+                <ScalarProperty Name="idSucursal" ColumnName="idSucursal" />
+                <ScalarProperty Name="idMedioPago" ColumnName="idMedioPago" />
+                <ScalarProperty Name="UsuarioBaja" ColumnName="UsuarioBaja" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="UsuarioAlta" ColumnName="UsuarioAlta" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="idVendedor" ColumnName="idVendedor" />
+                <ScalarProperty Name="idVenta" ColumnName="idVenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productosWithStock">
+            <EntityTypeMapping TypeName="bowtieModel.productosWithStock">
+              <MappingFragment StoreEntitySet="productosWithStock">
+                <ScalarProperty Name="PrecioGremio" ColumnName="PrecioGremio" />
+                <ScalarProperty Name="idStock" ColumnName="idStock" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="CodigoBarras" ColumnName="CodigoBarras" />
+                <ScalarProperty Name="PrecioContado" ColumnName="PrecioContado" />
+                <ScalarProperty Name="PrecioLista" ColumnName="PrecioLista" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,65 @@
+<div id="wrapper" ng-init="init()">
+    <div ng-include="'app/views/navbar-view.html'"></div>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Configuración de Precios</h1>
+                    </div>
+                </div>
+                <div class="row" id="precios">
+                    <div class="col-lg-12">
+                        <div class="panel panel-info">
+                            
+                            <div class="panel-heading">
+                                <div class="form-group venta-panel-heading">
+                                    <strong>Precios</strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <div class="input-group col-lg-12">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-equalizer"></span></span>
+                                        <input type="text" 
+                                               ng-model="grupo.Descripcion" 
+                                               class="form-control" 
+                                               placeholder="Nombre de categoría"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="input-group col-lg-12">
+                                        <span class="input-group-addon"><span>%</span></span>
+                                        <input type="text" 
+                                               ng-model="grupo.PorcentajeGrupoo" 
+                                               class="form-control" 
+                                               placeholder="Porcentaje de remarcado"/>
+                                    </div>
+                                </div>
+                                <input class="btn btn-info" type="submit" value="Agregar Categoría" ng-click="addGrupo(grupo)">
+                            </div>
+                            <div class="row">
+                                 <div class="col-xs-8">
+                                    <div class="input-group col-lg-12">
+                                        <span class="input-group-addon"><span>C</span></span>
+                                        <input type="text" ng-model="categorias" class="form-control" placeholder="Buscar Categoria"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                    <div class="well">
+                        <a ng-repeat="i in categoriasList | filter:categorias" href="#">
+                          <button class="btn btn-info" >
+                            {{i.descripcion}}
+                          </button>
+                        </a>
+                    </div>
+                    
+
+                </div>
+                
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+</div>

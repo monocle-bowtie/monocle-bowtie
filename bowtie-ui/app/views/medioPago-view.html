@@ -1,0 +1,64 @@
+<div id="wrapper" ng-init='init()'>
+    <div ng-include="'app/views/navbar-view.html'"></div>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Tarjetas de crédito</h1>
+                    </div>
+                    <div class="span4 panel-footer">
+                            <input data-wow-delay="1.5s"
+                                   id="guardar"
+                                   class="btn btn-info pull-right bounceInRight animated" 
+                                   type="submit" 
+                                   value="Guardar" 
+                                   ng-click="saveTarjeta(tarjeta)">
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                            <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="form-group venta-panel-heading">
+                                    <strong>Tarjetas</strong>
+                                </div>
+                            </div>
+                          
+                                <form class="form-inline" role="form">
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="input-group col-lg-12">
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-credit-card"></span></span>
+                                                <input ng-model="tarjeta.descripcion" type="text" class="form-control" placeholder="Ingrese el nombre de la tarjeta de crédito">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="form-group venta-panel-heading">
+                                    <strong>Listado de Tarjetas</strong>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped">
+                                    <tr ng-repeat="tarjeta in tarjetasList">
+                                        <td>{{tarjeta.descripcion}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+</div>
