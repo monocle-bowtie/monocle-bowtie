@@ -88,6 +88,7 @@ define(['app', 'StockService'], function (app, StockService) {
             
             StockService.saveStock(angular.toJson(prod));
 
+            $scope.producto.cant = producto.cantidad;
             $scope.stockList.push($scope.producto);
         }
     });
