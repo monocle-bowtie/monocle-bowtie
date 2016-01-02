@@ -5,12 +5,22 @@ define(['app', 'StockService'], function (app, StockService) {
         $scope.proveedoresList = [];
         $scope.cantidadFilas = 20;
 
+        $scope.producto = {};
+        $scope.producto.codigoBarras = "";
+        $scope.producto.idProveedor = 0;
+        $scope.producto.nombre = "";
+        $scope.producto.cantidad = "";
+        $scope.producto.precioContado = "";
+        $scope.producto.precioGremio = "";
+        $scope.producto.precioLista = "";
+
         var getProductos = StockService.getProductos();
         var getProveedores = StockService.getProveedores();
 
         $scope.init = function() {
             getProductos.then(function(stockList) {
                 $scope.stockList = stockList;
+                console.log(angular.toJson($scope.stockList));
             });
 
             getProveedores.then(function(proveedoresList) {
@@ -22,7 +32,14 @@ define(['app', 'StockService'], function (app, StockService) {
             ngDialog.open(
                     { 
                         template: frontEndHost.env+'app/views/popups/popup.html', 
-                        scope: $scope
+                        scope: $scope,
+                        codigoBarras: "",
+                        idProveedor:0,
+                        nombre: "",
+                        cantidad: "",
+                        contado: "",
+                        gremio: "",
+                        lista: ""
                     });
         };
 
@@ -43,11 +60,9 @@ define(['app', 'StockService'], function (app, StockService) {
                 $scope.producto.idStock = producto.idStock;
                 saveStockProductoEdit($scope.producto);
             });
-            
         }
 
         function saveStockProductoEdit(producto) {
-            console.log('producto: ' + angular.toJson(producto));
             var prod = {};
             prod.idStock = producto.idStock;
             prod.idProducto = producto.idProducto;
@@ -58,26 +73,40 @@ define(['app', 'StockService'], function (app, StockService) {
         }
 
          $scope.saveProductoNuevo  = function(producto) {
-            var prod = {};
+            if (producto === undefined) {
+                alert('Deben estar todos los campos completos');
+                return;
+            };
+            console.log(angular.toJson(producto));
+            if (producto.codigoBarras != "" &&
+                producto.idProveedor != 0 &&
+                producto.nombre != "" &&
+                producto.cantidad != "" &&
+                producto.precioContado != "" &&
+                producto.precioGremio != "" &&
+                producto.precioLista != "") {
+                    var prod = {};
 
-            prod.idProducto = 0;
-            prod.codigoBarras = producto.codigoBarras;
-            prod.idProveedor = producto.idProveedor;
-            prod.nombre = producto.nombre;
-            prod.cantidad = producto.cantidad;
-            prod.precioContado = producto.precioContado;
-            prod.precioGremio = producto.precioGremio;
-            prod.precioLista = producto.precioLista;
-            
-            var sp = StockService.saveProducto(angular.toJson(prod));
+                    prod.idProducto = 0;
+                    prod.codigoBarras = producto.codigoBarras;
+                    prod.idProveedor = producto.idProveedor;
+                    prod.nombre = producto.nombre;
+                    prod.cantidad = producto.cantidad;
+                    prod.precioContado = producto.precioContado;
+                    prod.precioGremio = producto.precioGremio;
+                    prod.precioLista = producto.precioLista;
+                    
+                    var sp = StockService.saveProducto(angular.toJson(prod));
 
-            sp.then(function(p) {
-                $scope.producto = p;
-                $scope.producto.cantidad = producto.cantidad;
-                saveStockProductoNuevo($scope.producto);
-            });
-            ngDialog.close();
-           
+                    sp.then(function(p) {
+                        $scope.producto = p;
+                        $scope.producto.cantidad = producto.cantidad;
+                        saveStockProductoNuevo($scope.producto);
+                    });
+                    ngDialog.close();
+            } else {
+                alert('Deben estar todos los campos completos');
+            }
         }
 
         function saveStockProductoNuevo(producto) {
