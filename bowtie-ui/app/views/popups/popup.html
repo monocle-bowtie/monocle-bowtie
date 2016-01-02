@@ -1,0 +1,67 @@
+<div class="dialog-contents">
+	<h4>Ingrese los datos del nuevo producto</h4>
+	<div class="row">
+		<div class="col-lg-12">
+			<label>Codigo de barras</label>
+			<input ng-model="producto.codigoBarras" 
+		           type="text" 
+		           class="form-control">
+	    </div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<label>Proveedor</label>
+			<select class="form-control"
+		            ng-model="producto.idProveedor"
+		            ng-options="proveedor.idProveedor as proveedor.nombre for proveedor in proveedoresList">
+		    </select>
+		</div>
+	</div>
+    <div class="row">
+    	<div class="col-lg-9">
+		    <label>Nombre del producto</label>
+			<input ng-model="producto.nombre" 
+		           type="text" 
+		           class="form-control">
+	    </div>
+	    <div class="col-lg-3">
+	    	<label>Cantidad</label>
+			<input ng-model="producto.cantidad" 
+		           type="text"
+		           class="form-control">
+	    </div>
+	</div>
+    <div class="row">
+    	<div class="col-lg-4">
+	    	<label>$ Contado</label>
+			<input ng-model="producto.precioContado" 
+		           type="text" 
+		           class="form-control"
+		           placeholder="$0.00">
+	    </div>
+		<div class="col-lg-4">
+		    <label>$ Gremio</label>
+			<input ng-model="producto.precioGremio" 
+		           type="text" 
+		           class="form-control"
+		           placeholder="$0.00">
+		</div>
+		<div class="col-lg-4">
+		    <label>$ Lista</label>
+			<input ng-model="producto.precioLista" 
+		           type="text" 
+		           class="form-control"
+		           placeholder="$0.00">
+		</div>
+    </div>
+
+    <div class="btn-popup">
+    	<input data-wow-delay="1.5s"
+           id="confirmar"
+           class="btn btn-info pull-right bounceInRight animated" 
+           type="submit" 
+           value="guardar" 
+           ng-click="saveProductoNuevo(producto)">
+    </div>
+
+</div>

@@ -10,6 +10,7 @@ require.config({
         'angular-cookies': 'angular-cookies/cookies.min',
         'angular-resource': 'angular-resource/angular-resource.min',
         'angular-mocks':'angular-mocks/angular-mocks',
+        'ngDialog':'ng-dialog/js/ngDialog',
         'jquery': 'jquery/dist/jquery.min',
         'jquery-fittext': 'jquery-fittext/jquery.fittext',
         'jquery-easing': 'jquery-easing/js/jquery.easing.min',
@@ -42,11 +43,18 @@ require.config({
         'ProductoModel': '../app/models/producto.model'
     },
 
-    shim: { 'angularAMD': ['angular'], 
+    shim: { 
+
+            angular: {
+                exports: "angular"
+            },
+            
+            'angularAMD': ['angular'], 
             'angular-route': ['angular'],
             'angular-cookies': ['angular'],
             'angular-resource': ['angular'],
             'angular-mocks':['angular'],
+            'ngDialog':['angular'],
             'jquery-fittext': ['jquery'],
             'bootstrap': ['jquery'],
             'datepicker': ['jquery'],

@@ -10,6 +10,16 @@
                 <div class="input-group form-group form-group-lg col-lg-4 ">
                   <input type="text" class="form-control" placeholder="Buscar en Stock..." ng-model="stockSearch">
                 </div>
+                <div class="col-lg-12 ">
+                <div class="span4 pull-right">
+                    <input data-wow-delay="1.5s"
+                           id="confirmar"
+                           class="btn btn-info pull-right bounceInRight animated" 
+                           type="submit" 
+                           value="Agregar Producto" 
+                           ng-click="addPorudctoNuevo()">
+                </div>
+                </div>
                 <div class="row" id="stock-list">
                     <div class="col-lg-12">
                         <div class="panel panel-info">
@@ -31,9 +41,9 @@
                                 <tr>
                                     <th>Código de barras</th>
                                     <th>Descripción</th>
-                                    <th>Precio Lista</th>
                                     <th>Precio Contado</th>
                                     <th>Precio Gremio</th>
+                                    <th>Precio Lista</th>
                                     <th>Cantidad</th>
                                 </tr>
                              </thead>
@@ -54,13 +64,6 @@
                                   
                                 </td>
                                 <td>
-                                    <input ng-model="producto.precioLista" 
-                                           type="text" 
-                                           class="form-control" 
-                                           placeholder="{{producto.precioLista | currency : symbol : fractionSize}}">
-
-                                </td>
-                                <td>
                                     <input ng-model="producto.precioContado" 
                                            type="text" 
                                            class="form-control" 
@@ -74,17 +77,24 @@
                                            placeholder="{{producto.precioGremio | currency : symbol : fractionSize}}">
 
                                 </td>
+                                <td>
+                                    <input ng-model="producto.precioLista" 
+                                           type="text" 
+                                           class="form-control" 
+                                           placeholder="{{producto.precioLista | currency : symbol : fractionSize}}">
+
+                                </td>
                                 <td ng-style="{'color':(producto.cantidad<0?'red':'blue')}">
                                     <input ng-model="producto.cant" type="text" class="form-control" placeholder="{{producto.stock}}">
                                 </td>
                                 <td>
-                                    <div class="span4 panel-footer">
+                                    <div class="span4">
                                         <input data-wow-delay="1.5s"
                                                id="confirmar"
                                                class="btn btn-info pull-right bounceInRight animated" 
                                                type="submit" 
-                                               value="guardar" 
-                                               ng-click="modificar(producto)">
+                                               value="Guardar" 
+                                               ng-click="editar(producto)">
                                     </div>
                                 </td>
                             </tr>

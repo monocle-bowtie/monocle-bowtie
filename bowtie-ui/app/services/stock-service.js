@@ -5,10 +5,24 @@ define(['app'], function (app) {
 			var service = {};
 
 			service.getProductos = getProductos;
-			service.modificarStock = modificarStock;
-			service.modificarProducto = modificarProducto;
+			service.saveStock = saveStock;
+			service.saveProducto = saveProducto;
+			service.getProveedores = getProveedores;
 
         	return service;
+
+        	function getProveedores() {
+	        	var callback = $q.defer();
+        		$http({
+					  method: 'GET',
+					  url: url.environment+'api/proveedor/get'
+					}).then(function successCallback(response) 
+					{						
+			      		callback.resolve(response.data);
+					});
+				return callback.promise;
+	        }
+
 
         	function getProductos() {
 	        	var callback = $q.defer();
@@ -22,26 +36,24 @@ define(['app'], function (app) {
 				return callback.promise;
 	        }
 
-	        function modificarProducto(producto) {
-	        	return $http.post(url.environment+'api/productos/post',
-			        producto)
-			        .then(function (response) {
-			        	alert('El producto se actualizó correctamente');
-			            return response;
+	        function saveProducto(producto) {
+	        	var callback = $q.defer();
+	        		$http.post(url.environment+'api/productos/post',
+			        	producto).then(function (response) {
+			            callback.resolve(response.data);
+			            alert('El producto se agregó correctamente');
 			        });
+			        return callback.promise;
 	        }
 
-	        function modificarStock(producto) {
-	        	return $http.post(url.environment+'api/stock/post',
-			        producto)
-			        .then(function (response) {
-			        	alert('El stock se actualizó correctamente');
-			            return response;
+	        function saveStock(producto) {
+	        	var callback = $q.defer();
+	        	$http.post(url.environment+'api/stock/post',
+			        producto).then(function (response) {
+			            callback.resolve(response.data);
 			        });
-				
+				return callback.promise;
 	        }
-
-	       
 		}
 	]);
 
