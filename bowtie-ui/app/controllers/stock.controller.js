@@ -20,7 +20,6 @@ define(['app', 'StockService'], function (app, StockService) {
         $scope.init = function() {
             getProductos.then(function(stockList) {
                 $scope.stockList = stockList;
-                console.log(angular.toJson($scope.stockList));
             });
 
             getProveedores.then(function(proveedoresList) {
@@ -67,7 +66,6 @@ define(['app', 'StockService'], function (app, StockService) {
             prod.idStock = producto.idStock;
             prod.idProducto = producto.idProducto;
             prod.cantidad = producto.cantidad;
-            console.log('save: ' + angular.toJson(prod));
 
             StockService.saveStock(angular.toJson(prod));
         }
@@ -77,7 +75,7 @@ define(['app', 'StockService'], function (app, StockService) {
                 alert('Deben estar todos los campos completos');
                 return;
             };
-            console.log(angular.toJson(producto));
+            
             if (producto.codigoBarras != "" &&
                 producto.idProveedor != 0 &&
                 producto.nombre != "" &&
@@ -101,7 +99,7 @@ define(['app', 'StockService'], function (app, StockService) {
                     sp.then(function(p) {
                         $scope.producto = p;
                         $scope.producto.cantidad = producto.cantidad;
-                        saveStockProductoNuevo($scope.producto);
+                        saveStockProductoNuevo($scope.producto);  
                     });
                     ngDialog.close();
             } else {
@@ -115,8 +113,11 @@ define(['app', 'StockService'], function (app, StockService) {
             prod.idProducto = producto.idProducto;
             prod.cantidad = producto.cantidad;
             
-            StockService.saveStock(angular.toJson(prod));
-
+            var sStock = StockService.saveStock(angular.toJson(prod));
+            sStock.then(function(p) {
+                $scope.producto.idStock = p.idStock;
+                console.log(p);
+            });
             $scope.producto.cant = producto.cantidad;
             $scope.stockList.push($scope.producto);
         }
