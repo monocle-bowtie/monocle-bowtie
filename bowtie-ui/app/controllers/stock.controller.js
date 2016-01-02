@@ -1,5 +1,5 @@
 define(['app', 'StockService'], function (app, StockService) {
-    app.controller('StockCtrl', function ($scope, $http, $rootScope, $filter, $timeout, ngDialog, StockService) {
+    app.controller('StockCtrl', function ($scope, $http, $rootScope, $filter, $timeout, ngDialog, StockService, frontEndHost) {
     	
     	$scope.stockList = [];
         $scope.proveedoresList = [];
@@ -21,7 +21,7 @@ define(['app', 'StockService'], function (app, StockService) {
         $scope.addPorudctoNuevo = function () {
             ngDialog.open(
                     { 
-                        template: '../app/views/popups/popup.html', 
+                        template: frontEndHost.env+'app/views/popups/popup.html', 
                         scope: $scope
                     });
         };
