@@ -41,7 +41,6 @@ define(['app', 'StockService'], function (app, StockService) {
                 $scope.producto = p;
                 $scope.producto.cantidad = producto.cant;
                 $scope.producto.idStock = producto.idStock;
-                console.log('prod pantalla: '+ angular.toJson(producto));
                 saveStockProductoEdit($scope.producto);
             });
             
@@ -54,6 +53,7 @@ define(['app', 'StockService'], function (app, StockService) {
             prod.idProducto = producto.idProducto;
             prod.cantidad = producto.cantidad;
             console.log('save: ' + angular.toJson(prod));
+
             StockService.saveStock(angular.toJson(prod));
         }
 
@@ -77,6 +77,7 @@ define(['app', 'StockService'], function (app, StockService) {
                 saveStockProductoNuevo($scope.producto);
             });
             ngDialog.close();
+           
         }
 
         function saveStockProductoNuevo(producto) {
@@ -84,8 +85,10 @@ define(['app', 'StockService'], function (app, StockService) {
             prod.idStock = 0;
             prod.idProducto = producto.idProducto;
             prod.cantidad = producto.cantidad;
-
+            
             StockService.saveStock(angular.toJson(prod));
+
+            $scope.stockList.push($scope.producto);
         }
     });
 });
