@@ -14,8 +14,12 @@ define(['angularAMD',
 		function (angularAMD, anguarRoute, angularCookies, angularResource, angularMocks, $, jqueryFittext, jqueryUi, bootstrap) {  
 		    var app = angular.module("webapp", ['ngRoute','angular-cookies', 'ngResource', 'ngDialog']);
 		    app.constant("url", {
-		    	'environment': 'http://localhost:53740/'
-		    	//'environment': 'http://ec2-52-11-118-155.us-west-2.compute.amazonaws.com/'
+		    	//'environment': 'http://localhost:53740/'
+		    	'environment': 'http://ec2-52-11-118-155.us-west-2.compute.amazonaws.com/'
+		    });
+		    app.constant("frontEndHost", {
+		    	//'env': 'http://localhost:53740/'
+		    	'env': 'http://monocle-bowtie.github.io/bowtie-ui/'
 		    });
 		    app.config(function ($routeProvider, $provide) {
 
