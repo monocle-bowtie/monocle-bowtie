@@ -19,7 +19,7 @@ define(['angularAMD',
 		    });
 		    app.constant("frontEndHost", {
 		    	//'env': 'http://localhost:8080/'
-		    	//'env': 'http://monocle-bowtie.github.io/bowtie-ui/'
+		    	'env': 'http://monocle-bowtie.github.io/bowtie-ui/'
 		    });
 		    app.config(function ($routeProvider, $provide) {
 
