@@ -55,13 +55,12 @@
                                            type="text" 
                                            class="form-control" 
                                            placeholder="{{producto.codigoBarras}}">
-                                    </td>
+                                </td>
                                 <td>
-                                    <input ng-model="producto.nombre" 
-                                           type="text" 
+                                    <input type="text" 
                                            class="form-control" 
-                                           placeholder="{{producto.nombre}}">
-                                  
+                                           placeholder="{{producto.nombre}}"
+                                           ng-model="producto.desc">
                                 </td>
                                 <td>
                                     <input ng-model="producto.precioContado" 

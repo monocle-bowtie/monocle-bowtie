@@ -46,7 +46,7 @@ define(['app', 'StockService'], function (app, StockService) {
             var prod = {};
 
             prod.idProducto = producto.idProducto;
-            prod.nombre = producto.nombre;
+            prod.nombre = producto.desc;
             prod.precioContado = producto.precioContado;
             prod.precioGremio = producto.precioGremio;
             prod.precioLista = producto.precioLista;
