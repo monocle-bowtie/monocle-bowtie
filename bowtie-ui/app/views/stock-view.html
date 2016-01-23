@@ -19,31 +19,21 @@
                            value="Agregar Producto" 
                            ng-click="addPorudctoNuevo()">
                 </div>
-                </div>
-                <div class="row" id="stock-list">
-                    <div class="col-lg-12">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <div class="form-group venta-panel-heading">
-                                    <strong>Productos</strong>
-                                </div>
-                            </div>
-                        
+                </div>   
 
-                        <div class="table-responsive">
-                        <table class="table table-hover table-striped">
+                        <table>
+                            <col style="width:15%">
+                            <col style="width:45%">
                             <col style="width:10%">
-                            <col style="width:30%">
-                            <col style="width:20%">
-                            <col style="width:20%">
-                            <col style="width:20%">
+                            <col style="width:10%">
+                            <col style="width:10%">
                             <thead>
                                 <tr>
                                     <th>Código de barras</th>
                                     <th>Descripción</th>
-                                    <th>Precio Contado</th>
-                                    <th>Precio Gremio</th>
-                                    <th>Precio Lista</th>
+                                    <th>$ Contado</th>
+                                    <th>$ Gremio</th>
+                                    <th>$ Lista</th>
                                     <th>Cantidad</th>
                                 </tr>
                              </thead>
@@ -53,44 +43,43 @@
                                 <td>
                                     <input ng-model="producto.codigoBarras" 
                                            type="text" 
-                                           class="form-control" 
-                                           placeholder="{{producto.codigoBarras}}">
+                                           class="form-control">
                                 </td>
                                 <td>
-                                    <input type="text" 
-                                           class="form-control" 
-                                           placeholder="{{producto.nombre}}"
-                                           ng-model="producto.desc">
+                                    <input ng-model="producto.desc"
+                                           type="text" 
+                                           class="form-control"
+                                           placeholder="{{producto.descripcion}}"
+                                           popover="I appeared on focus! Click away and I'll vanish..."  popover-trigger="focus">
                                 </td>
                                 <td>
                                     <input ng-model="producto.precioContado" 
                                            type="text" 
-                                           class="form-control" 
-                                           placeholder="{{producto.precioContado | currency : symbol : fractionSize}}">
+                                           class="form-control">
 
                                 </td>
                                 <td>
                                     <input ng-model="producto.precioGremio" 
                                            type="text" 
-                                           class="form-control" 
-                                           placeholder="{{producto.precioGremio | currency : symbol : fractionSize}}">
+                                           class="form-control">
 
                                 </td>
                                 <td>
                                     <input ng-model="producto.precioLista" 
                                            type="text" 
-                                           class="form-control" 
-                                           placeholder="{{producto.precioLista | currency : symbol : fractionSize}}">
+                                           class="form-control">
 
                                 </td>
-                                <td ng-style="{'color':(producto.cantidad<0?'red':'blue')}">
-                                    <input ng-model="producto.cant" type="text" class="form-control" placeholder="{{producto.stock}}">
+                                <td>
+                                    <input ng-style="{'color':(producto.cantidad<0?'red':'blue')}"
+                                           ng-model="producto.stock" 
+                                           type="text" 
+                                           class="form-control">
                                 </td>
                                 <td>
                                     <div class="span4">
-                                        <input data-wow-delay="1.5s"
-                                               id="confirmar"
-                                               class="btn btn-info pull-right bounceInRight animated" 
+                                        <input id="confirmar"
+                                               class="btn btn-info" 
                                                type="submit" 
                                                value="Guardar" 
                                                ng-click="editar(producto)">
@@ -98,10 +87,6 @@
                                 </td>
                             </tr>
                         </table>
-                        </div>
-                    </div>
-                    </div>
-                </div>
                 
             </div>
             <!-- /.container-fluid -->

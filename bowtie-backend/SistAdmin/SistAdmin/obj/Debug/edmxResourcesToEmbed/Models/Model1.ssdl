@@ -1,0 +1,977 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="bowtieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Caja">
+    <Key>
+      <PropertyRef Name="idCaja" />
+    </Key>
+    <Property Name="idCaja" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idConcepto" Type="int" Nullable="false" />
+    <Property Name="TipoMovimiento" Type="nchar" MaxLength="1" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="UsuarioBaja" Type="int" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="Monto" Type="numeric" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Ciudad">
+    <Key>
+      <PropertyRef Name="idCiudad" />
+    </Key>
+    <Property Name="idCiudad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CodigoPostal" Type="int" />
+    <Property Name="idProvincia" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="idCliente" />
+    </Key>
+    <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="50" />
+    <Property Name="Telefono" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+    <Property Name="idCiudad" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Compra">
+    <Key>
+      <PropertyRef Name="idCompra" />
+    </Key>
+    <Property Name="idCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idProveedor" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Total" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+    <Property Name="NroFactura" Type="varchar" MaxLength="50" />
+    <Property Name="idMedioPago" Type="int" />
+  </EntityType>
+  <EntityType Name="CompraDetalle">
+    <Key>
+      <PropertyRef Name="idCompra" />
+      <PropertyRef Name="idCompraDetalle" />
+    </Key>
+    <Property Name="idCompra" Type="int" Nullable="false" />
+    <Property Name="idCompraDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="int" />
+    <Property Name="PrecioUnitario" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="PrecioTotal" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Concepto">
+    <Key>
+      <PropertyRef Name="IdConcepto" />
+    </Key>
+    <Property Name="IdConcepto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Funcion">
+    <Key>
+      <PropertyRef Name="idFuncion" />
+    </Key>
+    <Property Name="idFuncion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="varchar" MaxLength="50" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="FuncionXRol">
+    <Key>
+      <PropertyRef Name="idFuncion" />
+      <PropertyRef Name="idRol" />
+    </Key>
+    <Property Name="idFuncion" Type="int" Nullable="false" />
+    <Property Name="idRol" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="GrupoProducto">
+    <Key>
+      <PropertyRef Name="idGrupo" />
+    </Key>
+    <Property Name="idGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+    <Property Name="PorcentajeGrupo" Type="numeric" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="GrupoXProducto">
+    <Key>
+      <PropertyRef Name="idGrupo" />
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idGrupo" Type="int" Nullable="false" />
+    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="MedioPago">
+    <Key>
+      <PropertyRef Name="idMedioPago" />
+    </Key>
+    <Property Name="idMedioPago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RecargoAdicional" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+    <Property Name="Lote" Type="int" />
+    <Property Name="Comprobante" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Novedad">
+    <Key>
+      <PropertyRef Name="idNovedad" />
+    </Key>
+    <Property Name="idNovedad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="idRol" Type="int" Nullable="false" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Pais">
+    <Key>
+      <PropertyRef Name="idPais" />
+    </Key>
+    <Property Name="idPais" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Parametrizacion">
+    <Key>
+      <PropertyRef Name="idParametrizacion" />
+    </Key>
+    <Property Name="idParametrizacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+    <Property Name="Valor" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="100" />
+    <Property Name="PrecioLista" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="CodigoBarras" Type="varchar" MaxLength="50" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+    <Property Name="PrecioContado" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="PrecioGremio" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="ProductoPrecio">
+    <Key>
+      <PropertyRef Name="idProducto" />
+      <PropertyRef Name="idProveedor" />
+    </Key>
+    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="idProveedor" Type="int" Nullable="false" />
+    <Property Name="PrecioCosto" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Promocion">
+    <Key>
+      <PropertyRef Name="IdPromocion" />
+    </Key>
+    <Property Name="IdPromocion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+    <Property Name="PrecioContado" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+    <Property Name="PrecioTarjeta" Type="numeric" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="PromocionProducto">
+    <Key>
+      <PropertyRef Name="idPromocion" />
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idPromocion" Type="int" Nullable="false" />
+    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="idProveedor" />
+    </Key>
+    <Property Name="idProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="50" />
+    <Property Name="Telefono" Type="varchar" MaxLength="50" />
+    <Property Name="Mail" Type="varchar" MaxLength="50" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Provincia">
+    <Key>
+      <PropertyRef Name="idProvincia" />
+    </Key>
+    <Property Name="idProvincia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="idPais" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="idRol" />
+    </Key>
+    <Property Name="idRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="RolxUsuario">
+    <Key>
+      <PropertyRef Name="idRol" />
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idRol" Type="int" Nullable="false" />
+    <Property Name="idUsuario" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Stock">
+    <Key>
+      <PropertyRef Name="idStock" />
+    </Key>
+    <Property Name="idStock" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="int" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+    <Property Name="PrecioCosto" Type="numeric" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Sucursal">
+    <Key>
+      <PropertyRef Name="idSucursal" />
+    </Key>
+    <Property Name="idSucursal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="50" />
+    <Property Name="Telefono" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="idCiudad" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Tarjeta">
+    <Key>
+      <PropertyRef Name="idTarjeta" />
+    </Key>
+    <Property Name="idTarjeta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idVendedor" Type="int" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="Usuario" Type="varchar" MaxLength="20" />
+    <Property Name="login" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Vendedor">
+    <Key>
+      <PropertyRef Name="idVendedor" />
+    </Key>
+    <Property Name="idVendedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+    <Property Name="DNI" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Telefono" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Direccion" Type="varchar" MaxLength="50" />
+    <Property Name="FechaIngreso" Type="datetime" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+    <Property Name="idCiudad" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="idVenta" />
+    </Key>
+    <Property Name="idVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idVendedor" Type="int" Nullable="false" />
+    <Property Name="idCliente" Type="int" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Total" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+    <Property Name="idMedioPago" Type="int" Nullable="false" />
+    <Property Name="idSucursal" Type="int" Nullable="false" />
+    <Property Name="NroTicket" Type="varchar" MaxLength="50" />
+    <Property Name="TotalPromocion" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="idTarjeta" Type="int" />
+    <Property Name="MontoPagado" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="VentaDetalle">
+    <Key>
+      <PropertyRef Name="idVenta" />
+      <PropertyRef Name="idVentaDetalle" />
+    </Key>
+    <Property Name="idVenta" Type="int" Nullable="false" />
+    <Property Name="idVentaDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="PrecioUnitario" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Cantidad" Type="int" />
+    <Property Name="PrecioFinal" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <EntityType Name="VentaPromoDetalle">
+    <Key>
+      <PropertyRef Name="IdVenta" />
+      <PropertyRef Name="idPromoDetalle" />
+    </Key>
+    <Property Name="IdVenta" Type="int" Nullable="false" />
+    <Property Name="idPromoDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idPromocion" Type="int" Nullable="false" />
+    <Property Name="Cantidad" Type="int" />
+    <Property Name="PrecioUnitario" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PrecioTotal" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Estado" Type="nchar" MaxLength="1" />
+    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioAlta" Type="int" Nullable="false" />
+    <Property Name="FechaBaja" Type="datetime" />
+    <Property Name="UsuarioBaja" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Bowtie2.dbo.productosWithStock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="productosWithStock">
+    <Key>
+      <PropertyRef Name="idProducto" />
+      <PropertyRef Name="idStock" />
+    </Key>
+    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+    <Property Name="PrecioLista" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="PrecioContado" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="PrecioGremio" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CodigoBarras" Type="varchar" MaxLength="50" />
+    <Property Name="Stock" Type="int" />
+    <Property Name="idStock" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Ciudad_ToTable">
+    <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
+    <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provincia">
+        <PropertyRef Name="idProvincia" />
+      </Principal>
+      <Dependent Role="Ciudad">
+        <PropertyRef Name="idProvincia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cliente_ToTable">
+    <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ciudad">
+        <PropertyRef Name="idCiudad" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="idCiudad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Compra_ToTable">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+    <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="idProveedor" />
+      </Principal>
+      <Dependent Role="Compra">
+        <PropertyRef Name="idProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Compra_ToTable_1">
+    <End Role="MedioPago" Type="Self.MedioPago" Multiplicity="0..1" />
+    <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MedioPago">
+        <PropertyRef Name="idMedioPago" />
+      </Principal>
+      <Dependent Role="Compra">
+        <PropertyRef Name="idMedioPago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CompraDetalle_ToTable">
+    <End Role="Compra" Type="Self.Compra" Multiplicity="1" />
+    <End Role="CompraDetalle" Type="Self.CompraDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Compra">
+        <PropertyRef Name="idCompra" />
+      </Principal>
+      <Dependent Role="CompraDetalle">
+        <PropertyRef Name="idCompra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CompraDetalle_ToTable_1">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="CompraDetalle" Type="Self.CompraDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="CompraDetalle">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FuncionXRol_ToTable">
+    <End Role="Funcion" Type="Self.Funcion" Multiplicity="1" />
+    <End Role="FuncionXRol" Type="Self.FuncionXRol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Funcion">
+        <PropertyRef Name="idFuncion" />
+      </Principal>
+      <Dependent Role="FuncionXRol">
+        <PropertyRef Name="idFuncion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FuncionXRol_ToTable_1">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+    <End Role="FuncionXRol" Type="Self.FuncionXRol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="idRol" />
+      </Principal>
+      <Dependent Role="FuncionXRol">
+        <PropertyRef Name="idRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GrupoXProducto_ToTable">
+    <End Role="GrupoProducto" Type="Self.GrupoProducto" Multiplicity="1" />
+    <End Role="GrupoXProducto" Type="Self.GrupoXProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GrupoProducto">
+        <PropertyRef Name="idGrupo" />
+      </Principal>
+      <Dependent Role="GrupoXProducto">
+        <PropertyRef Name="idGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GrupoXProducto_ToTable_1">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="GrupoXProducto" Type="Self.GrupoXProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="GrupoXProducto">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Novedad_ToTable">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+    <End Role="Novedad" Type="Self.Novedad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="idRol" />
+      </Principal>
+      <Dependent Role="Novedad">
+        <PropertyRef Name="idRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductoPrecio_ToTable">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="ProductoPrecio" Type="Self.ProductoPrecio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="ProductoPrecio">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductoPrecio_ToTable_1">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+    <End Role="ProductoPrecio" Type="Self.ProductoPrecio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="idProveedor" />
+      </Principal>
+      <Dependent Role="ProductoPrecio">
+        <PropertyRef Name="idProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PromocionProducto_ToTable">
+    <End Role="Promocion" Type="Self.Promocion" Multiplicity="1" />
+    <End Role="PromocionProducto" Type="Self.PromocionProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Promocion">
+        <PropertyRef Name="IdPromocion" />
+      </Principal>
+      <Dependent Role="PromocionProducto">
+        <PropertyRef Name="idPromocion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PromocionProducto_ToTable_1">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="PromocionProducto" Type="Self.PromocionProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="PromocionProducto">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Provincia_ToTable">
+    <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+    <End Role="Provincia" Type="Self.Provincia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pais">
+        <PropertyRef Name="idPais" />
+      </Principal>
+      <Dependent Role="Provincia">
+        <PropertyRef Name="idPais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolxUsuario_ToTable">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="RolxUsuario" Type="Self.RolxUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="RolxUsuario">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolxUsuario_ToTable_1">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+    <End Role="RolxUsuario" Type="Self.RolxUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="idRol" />
+      </Principal>
+      <Dependent Role="RolxUsuario">
+        <PropertyRef Name="idRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Stock_ToTable">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="Stock">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sucursal_ToTable">
+    <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+    <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ciudad">
+        <PropertyRef Name="idCiudad" />
+      </Principal>
+      <Dependent Role="Sucursal">
+        <PropertyRef Name="idCiudad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToTable">
+    <End Role="Concepto" Type="Self.Concepto" Multiplicity="1" />
+    <End Role="Caja" Type="Self.Caja" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Concepto">
+        <PropertyRef Name="IdConcepto" />
+      </Principal>
+      <Dependent Role="Caja">
+        <PropertyRef Name="idConcepto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_ToTable">
+    <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendedor">
+        <PropertyRef Name="idVendedor" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="idVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vendedor_ToTable">
+    <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="1" />
+    <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ciudad">
+        <PropertyRef Name="idCiudad" />
+      </Principal>
+      <Dependent Role="Vendedor">
+        <PropertyRef Name="idCiudad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Venta_ToTable">
+    <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendedor">
+        <PropertyRef Name="idVendedor" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="idVendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Venta_ToTable_1">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="idCliente" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="idCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Venta_ToTable_2">
+    <End Role="MedioPago" Type="Self.MedioPago" Multiplicity="1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MedioPago">
+        <PropertyRef Name="idMedioPago" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="idMedioPago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Venta_ToTable_3">
+    <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sucursal">
+        <PropertyRef Name="idSucursal" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="idSucursal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VentaDetalle_ToTable">
+    <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+    <End Role="VentaDetalle" Type="Self.VentaDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venta">
+        <PropertyRef Name="idVenta" />
+      </Principal>
+      <Dependent Role="VentaDetalle">
+        <PropertyRef Name="idVenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VentaDetalle_ToTable_1">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="VentaDetalle" Type="Self.VentaDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="VentaDetalle">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VentaPromoDetalle_ToTable">
+    <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+    <End Role="VentaPromoDetalle" Type="Self.VentaPromoDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venta">
+        <PropertyRef Name="idVenta" />
+      </Principal>
+      <Dependent Role="VentaPromoDetalle">
+        <PropertyRef Name="IdVenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="bowtieModelStoreContainer">
+    <EntitySet Name="Caja" EntityType="Self.Caja" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ciudad" EntityType="Self.Ciudad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CompraDetalle" EntityType="Self.CompraDetalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Concepto" EntityType="Self.Concepto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Funcion" EntityType="Self.Funcion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FuncionXRol" EntityType="Self.FuncionXRol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GrupoProducto" EntityType="Self.GrupoProducto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GrupoXProducto" EntityType="Self.GrupoXProducto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MedioPago" EntityType="Self.MedioPago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Novedad" EntityType="Self.Novedad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Parametrizacion" EntityType="Self.Parametrizacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductoPrecio" EntityType="Self.ProductoPrecio" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Promocion" EntityType="Self.Promocion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PromocionProducto" EntityType="Self.PromocionProducto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RolxUsuario" EntityType="Self.RolxUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tarjeta" EntityType="Self.Tarjeta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vendedor" EntityType="Self.Vendedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VentaDetalle" EntityType="Self.VentaDetalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VentaPromoDetalle" EntityType="Self.VentaPromoDetalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="productosWithStock" EntityType="Self.productosWithStock" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [productosWithStock].[idProducto] AS [idProducto], 
+    [productosWithStock].[Descripcion] AS [Descripcion], 
+    [productosWithStock].[PrecioLista] AS [PrecioLista], 
+    [productosWithStock].[PrecioContado] AS [PrecioContado], 
+    [productosWithStock].[PrecioGremio] AS [PrecioGremio], 
+    [productosWithStock].[CodigoBarras] AS [CodigoBarras], 
+    [productosWithStock].[Stock] AS [Stock], 
+    [productosWithStock].[idStock] AS [idStock]
+    FROM [dbo].[productosWithStock] AS [productosWithStock]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Ciudad_ToTable" Association="Self.FK_Ciudad_ToTable">
+      <End Role="Provincia" EntitySet="Provincia" />
+      <End Role="Ciudad" EntitySet="Ciudad" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cliente_ToTable" Association="Self.FK_Cliente_ToTable">
+      <End Role="Ciudad" EntitySet="Ciudad" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Compra_ToTable" Association="Self.FK_Compra_ToTable">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Compra" EntitySet="Compra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Compra_ToTable_1" Association="Self.FK_Compra_ToTable_1">
+      <End Role="MedioPago" EntitySet="MedioPago" />
+      <End Role="Compra" EntitySet="Compra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CompraDetalle_ToTable" Association="Self.FK_CompraDetalle_ToTable">
+      <End Role="Compra" EntitySet="Compra" />
+      <End Role="CompraDetalle" EntitySet="CompraDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CompraDetalle_ToTable_1" Association="Self.FK_CompraDetalle_ToTable_1">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="CompraDetalle" EntitySet="CompraDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FuncionXRol_ToTable" Association="Self.FK_FuncionXRol_ToTable">
+      <End Role="Funcion" EntitySet="Funcion" />
+      <End Role="FuncionXRol" EntitySet="FuncionXRol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FuncionXRol_ToTable_1" Association="Self.FK_FuncionXRol_ToTable_1">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="FuncionXRol" EntitySet="FuncionXRol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GrupoXProducto_ToTable" Association="Self.FK_GrupoXProducto_ToTable">
+      <End Role="GrupoProducto" EntitySet="GrupoProducto" />
+      <End Role="GrupoXProducto" EntitySet="GrupoXProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GrupoXProducto_ToTable_1" Association="Self.FK_GrupoXProducto_ToTable_1">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="GrupoXProducto" EntitySet="GrupoXProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Novedad_ToTable" Association="Self.FK_Novedad_ToTable">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Novedad" EntitySet="Novedad" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductoPrecio_ToTable" Association="Self.FK_ProductoPrecio_ToTable">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="ProductoPrecio" EntitySet="ProductoPrecio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductoPrecio_ToTable_1" Association="Self.FK_ProductoPrecio_ToTable_1">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="ProductoPrecio" EntitySet="ProductoPrecio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PromocionProducto_ToTable" Association="Self.FK_PromocionProducto_ToTable">
+      <End Role="Promocion" EntitySet="Promocion" />
+      <End Role="PromocionProducto" EntitySet="PromocionProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PromocionProducto_ToTable_1" Association="Self.FK_PromocionProducto_ToTable_1">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="PromocionProducto" EntitySet="PromocionProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Provincia_ToTable" Association="Self.FK_Provincia_ToTable">
+      <End Role="Pais" EntitySet="Pais" />
+      <End Role="Provincia" EntitySet="Provincia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolxUsuario_ToTable" Association="Self.FK_RolxUsuario_ToTable">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="RolxUsuario" EntitySet="RolxUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolxUsuario_ToTable_1" Association="Self.FK_RolxUsuario_ToTable_1">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="RolxUsuario" EntitySet="RolxUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Stock_ToTable" Association="Self.FK_Stock_ToTable">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Stock" EntitySet="Stock" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sucursal_ToTable" Association="Self.FK_Sucursal_ToTable">
+      <End Role="Ciudad" EntitySet="Ciudad" />
+      <End Role="Sucursal" EntitySet="Sucursal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToTable" Association="Self.FK_Table_ToTable">
+      <End Role="Concepto" EntitySet="Concepto" />
+      <End Role="Caja" EntitySet="Caja" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_ToTable" Association="Self.FK_Usuario_ToTable">
+      <End Role="Vendedor" EntitySet="Vendedor" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vendedor_ToTable" Association="Self.FK_Vendedor_ToTable">
+      <End Role="Ciudad" EntitySet="Ciudad" />
+      <End Role="Vendedor" EntitySet="Vendedor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Venta_ToTable" Association="Self.FK_Venta_ToTable">
+      <End Role="Vendedor" EntitySet="Vendedor" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Venta_ToTable_1" Association="Self.FK_Venta_ToTable_1">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Venta_ToTable_2" Association="Self.FK_Venta_ToTable_2">
+      <End Role="MedioPago" EntitySet="MedioPago" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Venta_ToTable_3" Association="Self.FK_Venta_ToTable_3">
+      <End Role="Sucursal" EntitySet="Sucursal" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VentaDetalle_ToTable" Association="Self.FK_VentaDetalle_ToTable">
+      <End Role="Venta" EntitySet="Venta" />
+      <End Role="VentaDetalle" EntitySet="VentaDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VentaDetalle_ToTable_1" Association="Self.FK_VentaDetalle_ToTable_1">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="VentaDetalle" EntitySet="VentaDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VentaPromoDetalle_ToTable" Association="Self.FK_VentaPromoDetalle_ToTable">
+      <End Role="Venta" EntitySet="Venta" />
+      <End Role="VentaPromoDetalle" EntitySet="VentaPromoDetalle" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

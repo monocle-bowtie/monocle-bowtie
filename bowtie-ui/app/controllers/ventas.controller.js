@@ -146,7 +146,7 @@ define(['app', 'VentasService'], function (app, VentasService) {
 
         function createProducto(producto) {
             var prod = {};
-            prod.descripcion = producto.nombre;
+            prod.descripcion = producto.descripcion;
             prod.idVenta = 0;
             prod.idVentaDetalle = 0;
             prod.idProducto = producto.idProducto;

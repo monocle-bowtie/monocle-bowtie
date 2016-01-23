@@ -1,7 +1,7 @@
-define(['app', 'StockService'], function (app, StockService) {
+define(['app', 'StockService', 'ui-bootstrap'], function (app, StockService) {
     app.controller('StockCtrl', function ($scope, $http, $rootScope, $filter, $timeout, ngDialog, StockService, frontEndHost) {
-    	
-    	$scope.stockList = [];
+        
+        $scope.stockList = [];
         $scope.proveedoresList = [];
         $scope.cantidadFilas = 20;
 
@@ -42,11 +42,26 @@ define(['app', 'StockService'], function (app, StockService) {
                     });
         };
 
+        $scope.dynamicPopover = {
+            content: 'Hello, World!',
+            templateUrl: 'app/views/popups/myPopoverTemplate.html',
+            title: 'Title'
+          };
+
         $scope.editar = function(producto) {
+            
             var prod = {};
 
             prod.idProducto = producto.idProducto;
-            prod.nombre = producto.desc;
+            
+            if (producto.desc) {
+                prod.nombre = producto.desc;
+            } else if (producto.desc != undefined) {
+                prod.nombre = producto.desc;
+            } else {
+                prod.nombre = producto.descripcion;    
+            }
+            
             prod.precioContado = producto.precioContado;
             prod.precioGremio = producto.precioGremio;
             prod.precioLista = producto.precioLista;
@@ -55,7 +70,7 @@ define(['app', 'StockService'], function (app, StockService) {
             var sp = StockService.saveProducto(angular.toJson(prod));
             sp.then(function(p){
                 $scope.producto = p;
-                $scope.producto.cantidad = producto.cant;
+                $scope.producto.cantidad = producto.stock;
                 $scope.producto.idStock = producto.idStock;
                 saveStockProductoEdit($scope.producto);
             });
@@ -71,40 +86,25 @@ define(['app', 'StockService'], function (app, StockService) {
         }
 
          $scope.saveProductoNuevo  = function(producto) {
-            if (producto === undefined) {
-                alert('Deben estar todos los campos completos');
-                return;
-            };
+            var prod = {};
+
+            prod.idProducto = 0;
+            prod.codigoBarras = producto.codigoBarras;
+            prod.idProveedor = producto.idProveedor;
+            prod.nombre = producto.descripcion;
+            prod.cantidad = producto.cantidad;
+            prod.precioContado = producto.precioContado;
+            prod.precioGremio = producto.precioGremio;
+            prod.precioLista = producto.precioLista;
             
-            if (producto.codigoBarras != "" &&
-                producto.idProveedor != 0 &&
-                producto.nombre != "" &&
-                producto.cantidad != "" &&
-                producto.precioContado != "" &&
-                producto.precioGremio != "" &&
-                producto.precioLista != "") {
-                    var prod = {};
+            var sp = StockService.saveProducto(angular.toJson(prod));
 
-                    prod.idProducto = 0;
-                    prod.codigoBarras = producto.codigoBarras;
-                    prod.idProveedor = producto.idProveedor;
-                    prod.nombre = producto.nombre;
-                    prod.cantidad = producto.cantidad;
-                    prod.precioContado = producto.precioContado;
-                    prod.precioGremio = producto.precioGremio;
-                    prod.precioLista = producto.precioLista;
-                    
-                    var sp = StockService.saveProducto(angular.toJson(prod));
-
-                    sp.then(function(p) {
-                        $scope.producto = p;
-                        $scope.producto.cantidad = producto.cantidad;
-                        saveStockProductoNuevo($scope.producto);  
-                    });
-                    ngDialog.close();
-            } else {
-                alert('Deben estar todos los campos completos');
-            }
+            sp.then(function(p) {
+                $scope.producto = p;
+                $scope.producto.cantidad = producto.cantidad;
+                saveStockProductoNuevo($scope.producto);  
+            });
+            ngDialog.close();
         }
 
         function saveStockProductoNuevo(producto) {
@@ -116,9 +116,11 @@ define(['app', 'StockService'], function (app, StockService) {
             var sStock = StockService.saveStock(angular.toJson(prod));
             sStock.then(function(p) {
                 $scope.producto.idStock = p.idStock;
-                console.log(p);
             });
             $scope.producto.cant = producto.cantidad;
+            $scope.producto.descripcion = producto.nombre;
+            $scope.producto.stock = producto.cantidad;
+            
             $scope.stockList.push($scope.producto);
         }
     });
